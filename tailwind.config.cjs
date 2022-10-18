@@ -8,6 +8,7 @@ module.exports = {
         white: '#f6f3e4',
         red: '#e68e87',
         pink: '#f4bfd1',
+        'dark-red': '#a64d4d',
       },
     },
   },
