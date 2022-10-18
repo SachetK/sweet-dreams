@@ -13,7 +13,7 @@ const ButtonComponent: FC<ButtonComponentProps> = ({ text }) => {
   return (
     <>
       <button
-        className="w-auto flex-none rounded-full shadow-xl border-b-8 border-dark-red bg-red active:border-b-4 active:shadow-md"
+        className="w-auto flex-none rounded-full border-b-8 border-dark-red bg-red shadow-xl active:border-b-4 active:shadow-md"
         type="button"
       >
         <div className="flex flex-row items-center justify-center">
