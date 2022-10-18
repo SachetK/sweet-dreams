@@ -1,52 +1,49 @@
 import { FC } from 'react'
+import Image from 'next/image'
+import homeIcon from '../../public/nav-home-icon.png'
+import searchIcon from '../../public/nav-search-icon.png'
+import profileIcon from '../../public/nav-person-icon.png'
+import insertIcon from '../../public/nav-insert-icon.png'
 
 const NavigationBar: FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center rounded-full bg-red">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        className="h-6 fill-black p-1"
-      >
-        <path
-          fillRule="evenodd"
-          d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z"
-          clipRule="evenodd"
+    <div className="fixed flex top-1/2 translate-y-[-50%] inset-x-10 h-4/5 w-24 flex-col gap-3 items-center justify-center rounded-full bg-pink">
+      <div className="relative w-full">
+        <Image
+          src={homeIcon}
+          layout="intrinsic"
+          height={homeIcon.height}
+          width={homeIcon.width}
+          alt="Navigation bar"
         />
-      </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        className="h-6 fill-black p-1"
-      >
-        <path
-          fillRule="evenodd"
-          d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z"
-          clipRule="evenodd"
+      </div>
+      <div className="relative w-full">
+        <Image
+          src={searchIcon}
+          layout="intrinsic"
+          height={searchIcon.height}
+          width={searchIcon.width}
+          alt="Navigation bar"
         />
-      </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        className="h-6 fill-black p-1"
-      >
-        <path
-          fillRule="evenodd"
-          d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z"
-          clipRule="evenodd"
+      </div>
+      <div className="relative w-full">
+        <Image
+          src={insertIcon}
+          layout="intrinsic"
+          height={insertIcon.height}
+          width={insertIcon.width}
+          alt="Navigation bar"
         />
-      </svg>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        className="h-6 fill-black p-1"
-      >
-        <path
-          fillRule="evenodd"
-          d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z"
-          clipRule="evenodd"
+      </div>
+      <div className="relative w-full">
+        <Image
+          src={profileIcon}
+          layout="intrinsic"
+          height={profileIcon.height}
+          width={profileIcon.width}
+          alt="Navigation bar"
         />
-      </svg>
+      </div>
     </div>
   )
 }

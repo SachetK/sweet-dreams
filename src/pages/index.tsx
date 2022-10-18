@@ -20,7 +20,11 @@ const Home: NextPage = () => {
               priority={true}
             />
           </div>
-          <ButtonComponent text="Find your favorite recipies!" />
+          <ButtonComponent
+            text="Find your favorite recipies!"
+            bgColor='dark-red'
+            color="red"
+          />
         </div>
       </main>
     </>

@@ -4,16 +4,20 @@ import continueIcon from '../../public/continue-main.png'
 
 type ButtonComponentProps = {
   text: string
-  color?: string
-  bgColor?: string
+  color: string
+  bgColor: string
   onClick?: () => void
 }
 
-const ButtonComponent: FC<ButtonComponentProps> = ({ text }) => {
+const ButtonComponent: FC<ButtonComponentProps> = ({
+  text,
+  color,
+  bgColor,
+}) => {
   return (
     <>
       <button
-        className="w-auto flex-none rounded-full shadow-xl border-b-8 border-dark-red bg-red active:border-b-4 active:shadow-md"
+        className={`w-auto flex-none rounded-full border-b-8 shadow-xl border-${bgColor} bg-${color} active:border-b-4 active:shadow-md`}
         type="button"
       >
         <div className="flex flex-row items-center justify-center">
