@@ -4,11 +4,12 @@ import homeIcon from '../../public/nav-home-icon.png'
 import searchIcon from '../../public/nav-search-icon.png'
 import profileIcon from '../../public/nav-person-icon.png'
 import insertIcon from '../../public/nav-insert-icon.png'
+import Link from 'next/link'
 
 const NavigationBar: FC = () => {
   return (
-    <div className="fixed flex top-1/2 translate-y-[-50%] inset-x-10 h-4/5 w-24 flex-col gap-3 items-center justify-center rounded-full bg-pink">
-      <div className="relative w-full">
+    <div className="fixed inset-x-10 top-1/2 flex h-4/5 w-24 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-full bg-pink">
+      <Link href="/" className="relative w-full">
         <Image
           src={homeIcon}
           layout="intrinsic"
@@ -16,7 +17,7 @@ const NavigationBar: FC = () => {
           width={homeIcon.width}
           alt="Navigation bar"
         />
-      </div>
+      </Link>
       <div className="relative w-full">
         <Image
           src={searchIcon}
