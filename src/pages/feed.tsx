@@ -9,12 +9,13 @@ const Feed: NextPage = () => {
         title="Sweet Dreams - Main Feed"
         description="Main landing page with recipies"
       />
-      <main className="bg-blue h-screen">
+      <main className="h-screen bg-blue overflow-x-hidden">
         <NavigationBar />
-        <div className='ml-40'>
-
+        <div className="relative left-40 top-10 w-full">
+          <div className='flex flex-row items-center justify-center w-56 bg-purple'>
+            <h1 className="text-6xl font-sans font-bold">Feed</h1>
+          </div>
         </div>
-        
       </main>
     </>
   )
