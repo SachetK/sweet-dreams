@@ -6,7 +6,7 @@ const About: NextPage = () => {
     <>
       <HeadComponent
         title="Sweet Dreams - About"
-        description="About page for Sweet Dreams app"
+        description="About Page for Sweet Dreams App"
       />
 
       <p>Hi there!</p>
