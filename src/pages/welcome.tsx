@@ -14,7 +14,11 @@ const Welcome: NextPage = () => {
       <main>
         <div className="flex h-screen flex-col items-center justify-center space-y-96">
           <HeadingBanner title="Welcome to Sweet Dreams" />
-          <ButtonComponent text="Save & Submit" color='bg-red' borderColor='border-dark-red'/>
+          <ButtonComponent
+            text="Save & Submit"
+            color="bg-pink"
+            borderColor="border-pink-dark"
+          />
         </div>
 
         <h1>Welcome to the world!</h1>

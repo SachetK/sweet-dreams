@@ -22,8 +22,8 @@ const Home: NextPage = () => {
           </div>
           <ButtonComponent
             text="Find your favorite recipies!"
-            borderColor="border-dark-red"
-            color="bg-red"
+            borderColor="border-pink-dark"
+            color="bg-pink"
           />
         </div>
       </main>

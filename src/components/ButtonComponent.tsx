@@ -6,7 +6,7 @@ type ButtonComponentProps = {
   text: string
   color: string
   borderColor: string
-  onClick?: () => void
+  href?: string
 }
 
 const ButtonComponent: FC<ButtonComponentProps> = ({
@@ -17,19 +17,19 @@ const ButtonComponent: FC<ButtonComponentProps> = ({
   return (
     <>
       <button
-        className={`w-auto flex-none rounded-full border-b-8 shadow-xl ${borderColor} ${color} active:border-b-4 active:shadow-md`}
+        className={`w-fit flex-none rounded-full border-b-8 shadow-xl ${borderColor} ${color} active:border-b-4 active:shadow-md`}
         type="button"
       >
         <div className="flex flex-row items-center justify-center">
-          <p className="w-2/3 flex-wrap justify-center p-2 font-sans text-xl font-medium">
+          <p className="w-3/5 flex-wrap justify-center p-4 font-sans text-xl font-medium">
             {text}
           </p>
-          <div className="relative w-1/4 self-center p-2">
+          <div className="relative mt-2 mr-2 w-14 self-center">
             <Image
               src={continueIcon}
-              layout="responsive"
-              height={continueIcon.height}
-              width={continueIcon.width}
+              layout="intrinsic"
+              height={55}
+              width={56}
               alt="Continue button"
             />
           </div>

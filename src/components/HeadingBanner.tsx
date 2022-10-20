@@ -7,8 +7,8 @@ type HeadingBannerProps = {
 const HeadingBanner: FC<HeadingBannerProps> = ({ title }) => {
   return (
     <>
-      <div className='flex bg-dark-red'>
-        <p className="items-center p-2 font-sans text-xl font-medium">
+      <div className="bg-red clip-path-heading">
+        <p className="mx-3 p-3 text-center font-sans text-xl font-medium text-white">
           {title}
         </p>
       </div>

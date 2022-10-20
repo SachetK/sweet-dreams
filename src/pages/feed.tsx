@@ -1,5 +1,6 @@
 import { NextPage } from 'next'
 import HeadComponent from '../components/HeadComponent'
+import HeadingBanner from '../components/HeadingBanner'
 import NavigationBar from '../components/NavigationBar'
 
 const Feed: NextPage = () => {
@@ -9,11 +10,16 @@ const Feed: NextPage = () => {
         title="Sweet Dreams - Main Feed"
         description="Main landing page with recipies"
       />
-      <main className="h-screen bg-blue overflow-x-hidden">
+      <main className="h-screen overflow-x-hidden bg-blue">
         <NavigationBar />
-        <div className="relative left-40 top-10 w-full">
-          <div className='flex flex-row items-center justify-center w-56 bg-purple'>
-            <h1 className="text-6xl font-sans font-bold">Feed</h1>
+        <div className="relative left-40 top-4 w-full">
+          <div className="w-max space-y-2">
+            <HeadingBanner title="New Recipies" />
+            {}
+            <HeadingBanner title="Popular Recipies" />
+            {}
+            <HeadingBanner title="Cusine Recipies" />
+            {}
           </div>
         </div>
       </main>
