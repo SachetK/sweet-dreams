@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import Image from 'next/image'
 import homeIcon from '../../public/nav-home-icon.png'
 import searchIcon from '../../public/nav-search-icon.png'
@@ -6,7 +5,7 @@ import profileIcon from '../../public/nav-person-icon.png'
 import insertIcon from '../../public/nav-insert-icon.png'
 import Link from 'next/link'
 
-const NavigationBar: FC = () => {
+const NavigationBar: React.FC = () => {
   return (
     <div className="fixed inset-x-10 top-1/2 flex h-4/5 w-24 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-full bg-pink">
       <Link href="/" className="relative w-full">

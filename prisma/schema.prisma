@@ -53,6 +53,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  recipes       Recipe[]
+  ratings        Rating[]
 }
 
 model VerificationToken {
@@ -64,10 +66,25 @@ model VerificationToken {
 }
 
 model Recipe {
-  id           String @id @default(cuid())
+  id            String   @id @default(cuid())
   title         String
-  description  String
-  image        String
-  ingredients  String
-  instructions String
+  description   String
+  image         String
+  ingredients   String
+  instructions  String
+  author        User     @relation(fields: [authorId], references: [id])
+  authorId      String
+  time          Float
+  ratingCount   Int
+  averageRating Float
+  ratings       Rating[]
+}
+
+model Rating {
+  id       String @id @default(cuid())
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId String
+  rating   Int
 }

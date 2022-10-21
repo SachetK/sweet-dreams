@@ -6,7 +6,7 @@ import { trpc } from '../utils/trpc'
 
 const Feed: NextPage = () => {
   const { data: recipes, isLoading } = trpc.useQuery(['recipe.getRecipes'])
-  
+
   return (
     <>
       <HeadComponent
@@ -19,32 +19,44 @@ const Feed: NextPage = () => {
         <div className="relative left-40 top-4 w-full">
           <div className="w-max space-y-2">
             <HeadingBanner title="New Recipies" />
-            { isLoading ? <div>Loading...</div> : recipes?.map((recipe) => {
-              return (
-                <div key={recipe.id}>
-                  <h1>{recipe.title}</h1>
-                  <p>{recipe.description}</p>
-                </div>
-              )
-            })}
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              recipes?.map((recipe) => {
+                return (
+                  <div key={recipe.id}>
+                    <h1>{recipe.title}</h1>
+                    <p>{recipe.description}</p>
+                  </div>
+                )
+              })
+            )}
             <HeadingBanner title="Popular Recipies" />
-            { isLoading ? <div>Loading...</div> : recipes?.map((recipe) => {
-              return (
-                <div key={recipe.id}>
-                  <h1>{recipe.title}</h1>
-                  <p>{recipe.description}</p>
-                </div>
-              )
-            })}
-            <HeadingBanner title="Cusine Recipies" />
-            { isLoading ? <div>Loading...</div> : recipes?.map((recipe) => {
-              return (
-                <div key={recipe.id}>
-                  <h1>{recipe.title}</h1>
-                  <p>{recipe.description}</p>
-                </div>
-              )
-            })}
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              recipes?.map((recipe) => {
+                return (
+                  <div key={recipe.id}>
+                    <h1>{recipe.title}</h1>
+                    <p>{recipe.description}</p>
+                  </div>
+                )
+              })
+            )}
+            <HeadingBanner title="Your Recipies" />
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : (
+              recipes?.map((recipe) => {
+                return (
+                  <div key={recipe.id}>
+                    <h1>{recipe.title}</h1>
+                    <p>{recipe.description}</p>
+                  </div>
+                )
+              })
+            )}
           </div>
         </div>
       </main>

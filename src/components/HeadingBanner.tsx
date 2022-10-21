@@ -1,10 +1,8 @@
-import { FC } from 'react'
-
 type HeadingBannerProps = {
   title: string
 }
 
-const HeadingBanner: FC<HeadingBannerProps> = ({ title }) => {
+const HeadingBanner: React.FC<HeadingBannerProps> = ({ title }) => {
   return (
     <>
       <div className="bg-red clip-path-heading">

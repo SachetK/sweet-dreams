@@ -1,12 +1,14 @@
 import Head from 'next/head'
-import { FC } from 'react'
 
 type HeadComponentProps = {
   title: string
   description: string
 }
 
-const HeadComponent: FC<HeadComponentProps> = ({ title, description }) => {
+const HeadComponent: React.FC<HeadComponentProps> = ({
+  title,
+  description,
+}) => {
   return (
     <Head>
       <title>{title}</title>
