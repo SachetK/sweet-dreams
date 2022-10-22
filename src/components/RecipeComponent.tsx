@@ -1,6 +1,7 @@
 import { Recipe } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import homeImage from '../../public/sweet-dreams-main.png'
 
 const RecipeComponent: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   const { title, time, averageRating, image } = recipe
@@ -8,19 +9,28 @@ const RecipeComponent: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   const [img, setImg] = useState<string>('')
 
   useEffect(() => {
-    setImg(image)
+    // setImg(image.toString('base64'))
   }, [image])
 
   return (
-    <div>
-      <div>
-        <div className='rounded-full h-1/4 w-1/4'>
-          <Image src={img} alt="recipe image" layout='fill' objectFit='contain' objectPosition='center' />
+    // <p>pp</p>
+
+    <div className="w-auto rounded-3xl bg-yellow">
+      <div className="flex h-28 w-full flex-row items-center">
+        <div className="relative ml-4 mr-8 h-24 w-24 ">
+          <Image
+            className="rounded-full"
+            src={homeImage}
+            alt="recipe image"
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+          />
         </div>
-        <div className='flex flex-col w-3/4'>
-          <h1 className='text-2xl'>{title}</h1>
-          <p className='text-sm'>Time: {time}</p>
-          <p className='text-sm'>{averageRating}/5</p>
+        <div className="flex w-96 flex-col">
+          <h1 className="text-2xl">{title}</h1>
+          <p className="text-md">Time: {time}</p>
+          <p className="text-md">Average Rating: {averageRating}/5</p>
         </div>
       </div>
     </div>

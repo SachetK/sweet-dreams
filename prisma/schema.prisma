@@ -54,7 +54,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   recipes       Recipe[]
-  ratings        Rating[]
+  ratings       Rating[]
 }
 
 model VerificationToken {
@@ -67,14 +67,15 @@ model VerificationToken {
 
 model Recipe {
   id            String   @id @default(cuid())
+  timestamp     DateTime @default(now())
   title         String
   description   String
-  image         String
+  image         Bytes?
   ingredients   String
   instructions  String
   author        User     @relation(fields: [authorId], references: [id])
   authorId      String
-  time          Float
+  time          Int // Cooking time in minutes
   ratingCount   Int
   averageRating Float
   ratings       Rating[]
@@ -87,4 +88,8 @@ model Rating {
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   recipeId String
   rating   Int
+}
+model Cuisine {
+  id       String @id @default(cuid())
+  name     String
 }

@@ -10,6 +10,7 @@ module.exports = {
         pink: '#fac0bb',
         'pink-dark': '#e1968f',
         'dark-red': '#a64d4d',
+        yellow: '#ffe985',
       },
       clipPath: {
         heading:
@@ -20,5 +21,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwind-clip-path')],
+  plugins: [require('tailwind-clip-path'), require('tailwind-scrollbar-hide')],
 }
