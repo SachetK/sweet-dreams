@@ -27,7 +27,7 @@ const Feed: NextPage = () => {
 
       <main className="h-screen overflow-x-hidden bg-blue">
         <NavigationBar />
-        <div className="relative left-40 top-4 h-auto w-full">
+        <div className="relative left-32 md:left-40 top-12 md:top-4 h-auto w-full">
           <div className="my-2 w-max space-y-2">
             <HeadingBanner title="New Recipies" />
             <div className="space-y-2 overflow-y-scroll scrollbar-hide">
