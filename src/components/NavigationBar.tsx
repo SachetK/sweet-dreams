@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 const NavigationBar: React.FC = () => {
   return (
-    <div className="fixed inset-x-10 top-1/2 flex h-4/5 w-24 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-full bg-pink">
+    <div className="fixed inset-x-10 top-1/2 flex h-4/5 sm:w-16 md:w-24 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-full bg-pink">
       <Link href="/" className="relative w-full">
         <Image
           src={homeIcon}
