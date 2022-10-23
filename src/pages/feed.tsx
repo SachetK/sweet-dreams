@@ -14,7 +14,7 @@ const Feed: NextPage = () => {
         description="Main landing page with recipies"
       />
 
-      <main className="h-screen overflow-x-hidden bg-blue">
+      <main className="h-screen overflow-x-hidden bg-main">
         <NavigationBar />
         <div className="relative left-32 top-12 bottom-12 h-screen w-full md:left-40 md:top-4 md:bottom-4">
           <RecipeCard title="New Recipes" query={'recipe.getRecipesByNewest'} />
