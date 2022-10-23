@@ -75,7 +75,7 @@ model Recipe {
   instructions  String
   author        User     @relation(fields: [authorId], references: [id])
   authorId      String
-  time          Int // Cooking time in minutes
+  timeToMake    Int // Cooking time in minutes
   ratingCount   Int
   averageRating Float
   ratings       Rating[]

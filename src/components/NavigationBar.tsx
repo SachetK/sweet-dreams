@@ -7,15 +7,17 @@ import Link from 'next/link'
 
 const NavigationBar: React.FC = () => {
   return (
-    <div className="fixed inset-x-10 top-1/2 flex h-96 md:h-4/5 w-16 md:w-24 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-full bg-pink">
+    <div className="fixed inset-x-10 top-1/2 flex h-96 w-16 -translate-y-1/2 flex-col items-center justify-center gap-3 rounded-full bg-pink md:h-4/5 md:w-24">
       <Link href="/" className="relative w-full">
-        <Image
-          src={homeIcon}
-          layout="intrinsic"
-          height={homeIcon.height}
-          width={homeIcon.width}
-          alt="Navigation bar"
-        />
+        <a>
+          <Image
+            src={homeIcon}
+            layout="intrinsic"
+            height={homeIcon.height}
+            width={homeIcon.width}
+            alt="Navigation bar"
+          />
+        </a>
       </Link>
       <div className="relative w-full">
         <Image

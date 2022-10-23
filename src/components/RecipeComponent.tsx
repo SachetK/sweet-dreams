@@ -4,7 +4,7 @@ import Image from 'next/image'
 import homeImage from '../../public/sweet-dreams-main.png'
 
 const RecipeComponent: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
-  const { title, time, averageRating, image } = recipe
+  const { title, timeToMake, averageRating, image } = recipe
 
   const [img, setImg] = useState<string>('')
 
@@ -29,7 +29,7 @@ const RecipeComponent: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
         </div>
         <div className="flex w-96 flex-col">
           <h1 className="text-2xl">{title}</h1>
-          <p className="text-md">Time: {time}</p>
+          <p className="text-md">Time: {timeToMake}</p>
           <p className="text-md">Average Rating: {averageRating}/5</p>
         </div>
       </div>
