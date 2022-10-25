@@ -19,15 +19,17 @@ const NavigationBar: React.FC = () => {
           />
         </a>
       </Link>
-      <div className="relative w-full">
-        <Image
-          src={searchIcon}
-          layout="intrinsic"
-          height={searchIcon.height}
-          width={searchIcon.width}
-          alt="Navigation bar"
-        />
-      </div>
+      <Link href="/search" className="relative w-full">
+        <a>
+          <Image
+            src={searchIcon}
+            layout="intrinsic"
+            height={searchIcon.height}
+            width={searchIcon.width}
+            alt="Navigation bar"
+          />
+        </a>
+      </Link>
       <div className="relative w-full">
         <Image
           src={insertIcon}

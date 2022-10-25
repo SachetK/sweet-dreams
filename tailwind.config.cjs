@@ -21,5 +21,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwind-clip-path'), require('tailwind-scrollbar-hide')],
+  plugins: [
+    require('tailwind-clip-path'),
+    require('tailwind-scrollbar-hide'),
+    require('@tailwindcss/forms'),
+  ],
 }

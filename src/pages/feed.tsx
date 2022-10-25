@@ -1,11 +1,10 @@
 import { NextPage } from 'next'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import HeadComponent from '../components/HeadComponent'
 import HeadingBanner from '../components/HeadingBanner'
 import NavigationBar from '../components/NavigationBar'
 import RecipeComponent from '../components/RecipeComponent'
 import { trpc } from '../utils/trpc'
-
 const Feed: NextPage = () => {
   return (
     <>
@@ -41,6 +40,10 @@ const RecipeCard: React.FC<{
 }> = ({ title, query, userId }) => {
   const [currPage, setCurrPage] = useState<number>(1)
   const [size, setSize] = useState<number>(1)
+
+  useEffect(() => {
+    setSize(Math.floor(window.innerHeight / 430))
+  }, [])
 
   const { data, isLoading, isPreviousData } = trpc.useQuery(
     [

@@ -2,6 +2,7 @@ import { Recipe } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import homeImage from '../../public/sweet-dreams-main.png'
+import { useHistory } from './HistoryProvider'
 
 const RecipeComponent: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   const { title, timeToMake, averageRating, image } = recipe
@@ -11,10 +12,9 @@ const RecipeComponent: React.FC<{ recipe: Recipe }> = ({ recipe }) => {
   useEffect(() => {
     // setImg(image.toString('base64'))
   }, [image])
+  const { history, setHistory } = useHistory()
 
   return (
-    // <p>pp</p>
-
     <div className="w-auto rounded-3xl bg-yellow">
       <div className="flex h-28 w-full flex-row items-center">
         <div className="relative ml-4 mr-8 h-24 w-24 ">

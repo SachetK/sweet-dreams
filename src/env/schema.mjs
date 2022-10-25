@@ -10,8 +10,13 @@ export const serverSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']),
   NEXTAUTH_SECRET: z.string(),
   NEXTAUTH_URL: z.string().url(),
-  // DISCORD_CLIENT_ID: z.string(),
-  // DISCORD_CLIENT_SECRET: z.string(),
+  GOOGLE_CLIENT_ID: z.string(),
+  GOOGLE_CLIENT_SECRET: z.string(),
+  EMAIL_FROM: z.string().email(),
+  EMAIL_SERVER_USER: z.string().email(),
+  EMAIL_SERVER_PASSWORD: z.string(),
+  EMAIL_SERVER_PORT: z.string(),
+  EMAIL_SERVER_HOST: z.string(),
 })
 
 /**

@@ -3,6 +3,8 @@ import Image from 'next/image'
 import homeImage from '../../public/sweet-dreams-main.png'
 import HeadComponent from '../components/HeadComponent'
 import ButtonComponent from '../components/ButtonComponent'
+import { signIn } from 'next-auth/react'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
   return (
@@ -11,7 +13,7 @@ const Home: NextPage = () => {
 
       <main className="bg-main">
         <div className="flex h-screen flex-col items-center justify-center">
-          <div className="flex-initial">
+          <div className="flex-initial" onClick={() => signIn('google')}>
             <Image
               src={homeImage}
               alt="Home page image"
@@ -20,11 +22,15 @@ const Home: NextPage = () => {
               priority={true}
             />
           </div>
-          <ButtonComponent
-            text="Find your favorite recipies!"
-            borderColor="border-pink-dark"
-            color="bg-pink"
-          />
+          <Link href="/welcome">
+            <a>
+              <ButtonComponent
+                text="Find your favorite recipies!"
+                borderColor="border-pink-dark"
+                color="bg-pink"
+              />
+            </a>
+          </Link>
         </div>
       </main>
     </>

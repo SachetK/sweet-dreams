@@ -42,7 +42,8 @@ const Search: NextPage = () => {
       <div className="mt-2 flex flex-row space-x-2">
         <form>
           <input
-            type="search"
+            type="text"
+            name="search"
             value={search}
             placeholder="Search for recipies"
             onChange={(e) => setSearch(e.target.value)}
@@ -69,9 +70,9 @@ const Search: NextPage = () => {
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          filteredRecipes?.map((recipe) => (
-            <RecipeComponent key={recipe.id} recipe={recipe} />
-          ))
+          filteredRecipes?.map((recipe) => {
+            return <RecipeComponent key={recipe.id} recipe={recipe} />
+          })
         )}
       </div>
     </main>
