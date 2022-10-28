@@ -1,7 +1,9 @@
-import { NextPage } from 'next'
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
+import { Session } from 'next-auth'
 import { useEffect, useMemo, useState } from 'react'
 import HeadComponent from '../components/HeadComponent'
 import RecipeComponent from '../components/RecipeComponent'
+import { getServerAuthSession } from '../server/common/get-server-auth-session'
 import { trpc } from '../utils/trpc'
 
 const Search: NextPage = () => {
@@ -79,4 +81,23 @@ const Search: NextPage = () => {
   )
 }
 
+export const getServerSideProps: GetServerSideProps<{
+  session: Session | null
+}> = async (context: GetServerSidePropsContext) => {
+  const session = await getServerAuthSession(context)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {
+      session: session,
+    },
+  }
+}
 export default Search

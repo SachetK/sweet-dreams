@@ -1,11 +1,17 @@
-import { NextPage } from 'next'
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
+import type { Session } from 'next-auth'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import HeadComponent from '../components/HeadComponent'
 import HeadingBanner from '../components/HeadingBanner'
 import NavigationBar from '../components/NavigationBar'
 import RecipeComponent from '../components/RecipeComponent'
+import { getServerAuthSession } from '../server/common/get-server-auth-session'
 import { trpc } from '../utils/trpc'
+
 const Feed: NextPage = () => {
+  const { data: session } = useSession()
+
   return (
     <>
       <HeadComponent
@@ -21,7 +27,11 @@ const Feed: NextPage = () => {
             title="Popular Recipes"
             query={'recipe.getRecipesByPopularity'}
           />
-          <RecipeCard title="Your Recipes" query={'recipe.getRecipesByUser'} />
+          <RecipeCard
+            title="Your Recipes"
+            query={'recipe.getRecipesByUser'}
+            userId={session?.user?.id}
+          />
         </div>
       </main>
     </>
@@ -60,31 +70,53 @@ const RecipeCard: React.FC<{
   )
 
   return (
-    <div className="my-2 w-max space-y-2 overflow-y-scroll scrollbar-hide">
-      <HeadingBanner title={title} />
-      <button
-        type="button"
-        className="bg-red"
-        onClick={() => setCurrPage((curr) => curr + 1)}
-        disabled={isPreviousData || currPage * size >= (data?.count ?? 0)}
-      >
-        Next
-      </button>
-      <button
-        type="button"
-        className="ml-4 bg-red"
-        onClick={() => setCurrPage((curr) => curr - 1)}
-        disabled={currPage === 1}
-      >
-        Prev
-      </button>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        data?.recipes.map((recipe) => {
-          return <RecipeComponent key={recipe.id} recipe={recipe} />
-        })
-      )}
-    </div>
+    <>
+      <div className="my-2 w-max space-y-2 overflow-y-scroll scrollbar-hide">
+        <HeadingBanner title={title} />
+        <button
+          type="button"
+          className="bg-red"
+          onClick={() => setCurrPage((curr) => curr + 1)}
+          disabled={isPreviousData || currPage * size >= (data?.count ?? 0)}
+        >
+          Next
+        </button>
+        <button
+          type="button"
+          className="ml-4 bg-red"
+          onClick={() => setCurrPage((curr) => curr - 1)}
+          disabled={currPage === 1}
+        >
+          Prev
+        </button>
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          data?.recipes.map((recipe) => {
+            return <RecipeComponent key={recipe.id} recipe={recipe} />
+          })
+        )}
+      </div>
+    </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps<{
+  session: Session | null
+}> = async (context: GetServerSidePropsContext) => {
+  const session = await getServerAuthSession(context)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+  return {
+    props: {
+      session: session,
+    },
+  }
 }

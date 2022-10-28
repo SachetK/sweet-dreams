@@ -1,7 +1,7 @@
 import { z } from 'zod'
-import { createRouter } from './context'
+import { createProtectedRouter } from './context'
 
-export const recipeRouter = createRouter()
+export const recipeRouter = createProtectedRouter()
   .query('getRecipesByNewest', {
     input: z.object({
       page: z.number(),

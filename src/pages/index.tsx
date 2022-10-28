@@ -3,17 +3,19 @@ import Image from 'next/image'
 import homeImage from '../../public/sweet-dreams-main.png'
 import HeadComponent from '../components/HeadComponent'
 import ButtonComponent from '../components/ButtonComponent'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 const Home: NextPage = () => {
+  const { data: session } = useSession()
+
   return (
     <>
       <HeadComponent title="Sweet Dreams" description="Sweet Dreams app" />
 
       <main className="bg-main">
         <div className="flex h-screen flex-col items-center justify-center">
-          <div className="flex-initial" onClick={() => signIn('google')}>
+          <div className="flex-initial">
             <Image
               src={homeImage}
               alt="Home page image"
@@ -22,15 +24,25 @@ const Home: NextPage = () => {
               priority={true}
             />
           </div>
-          <Link href="/welcome">
-            <a>
+          {!session ? (
+            <div onClick={() => signIn('google', { callbackUrl: '/feed' })}>
               <ButtonComponent
-                text="Find your favorite recipies!"
-                borderColor="border-pink-dark"
+                text="Sign in with Google"
                 color="bg-pink"
+                borderColor="border-pink-dark"
               />
-            </a>
-          </Link>
+            </div>
+          ) : (
+            <Link href="/feed">
+              <a>
+                <ButtonComponent
+                  text="Find your favorite recipes!"
+                  color="bg-pink"
+                  borderColor="border-pink-dark"
+                />
+              </a>
+            </Link>
+          )}
         </div>
       </main>
     </>
