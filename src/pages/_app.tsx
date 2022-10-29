@@ -10,7 +10,7 @@ import { HistoryProvider } from '../components/HistoryProvider'
 import type { AppRouter } from '../server/router'
 import '../styles/globals.css'
 
-const MyApp: AppType<{session: Session | null}> = ({
+const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {

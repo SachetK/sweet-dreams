@@ -17,7 +17,7 @@ export const recipeRouter = createProtectedRouter()
         },
         include: {
           ratings: true,
-        }
+        },
       })
       const count = await ctx.prisma.recipe.count()
       return {
@@ -41,7 +41,7 @@ export const recipeRouter = createProtectedRouter()
         },
         include: {
           ratings: true,
-        }
+        },
       })
       const count = await ctx.prisma.recipe.count()
       return {
@@ -68,7 +68,7 @@ export const recipeRouter = createProtectedRouter()
         },
         include: {
           ratings: true,
-        }
+        },
       })
       const count = await ctx.prisma.recipe.count()
       return {
@@ -88,10 +88,10 @@ export const recipeRouter = createProtectedRouter()
         },
         include: {
           ratings: true,
-        }
+        },
       })
       return recipe
-    }
+    },
   })
   .mutation('createRecipe', {
     input: z.object({
@@ -101,7 +101,10 @@ export const recipeRouter = createProtectedRouter()
       instructions: z.string(),
       timeToMake: z.number(),
     }),
-    resolve: async ({ ctx, input: { title, description, ingredients, instructions, timeToMake } }) => {
+    resolve: async ({
+      ctx,
+      input: { title, description, ingredients, instructions, timeToMake },
+    }) => {
       const recipe = await ctx.prisma.recipe.create({
         data: {
           title,
@@ -114,11 +117,10 @@ export const recipeRouter = createProtectedRouter()
             create: {
               rating: 0,
               userId: ctx.session.user.id,
-            }
-          }
-
+            },
+          },
         },
       })
       return recipe
-    }
+    },
   })

@@ -2,13 +2,16 @@ import { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import homeImage from '../../public/sweet-dreams-main.png'
 import { useHistory } from './HistoryProvider'
-import { getSession } from 'next-auth/react'
 import { RecipeWithRating } from '../utils/types'
 
-const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({ recipe }) => {
+const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
+  recipe,
+}) => {
   const { title, timeToMake, image, ratings } = recipe
   const [img, setImg] = useState<string>('')
-  const averageRating = useMemo(() => { return ratings.reduce((a, b) => a + b.rating, 0) / ratings.length }, [ratings])
+  const averageRating = useMemo(() => {
+    return ratings.reduce((a, b) => a + b.rating, 0) / ratings.length
+  }, [ratings])
 
   useEffect(() => {
     // setImg(image.toString('base64'))
@@ -17,7 +20,10 @@ const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({ recipe }) => 
   const { setHistory } = useHistory()
 
   return (
-    <div className="w-auto rounded-3xl bg-yellow" onClick={() => setHistory(prev => [...prev, recipe])}>
+    <div
+      className="w-auto rounded-3xl bg-yellow"
+      onClick={() => setHistory((prev) => [...prev, recipe])}
+    >
       <div className="flex h-28 w-full flex-row items-center">
         <div className="relative ml-4 mr-8 h-24 w-24 ">
           <Image
