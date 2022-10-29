@@ -11,7 +11,7 @@ const Welcome: NextPage = () => {
         description="Welcome Page for Sweet Dreams App"
       />
 
-      <main className='bg-main'>
+      <main className="bg-main">
         <div className="flex h-screen flex-col items-center justify-center space-y-96">
           <HeadingBanner title="Welcome to Sweet Dreams" />
           <ButtonComponent
