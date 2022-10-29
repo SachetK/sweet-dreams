@@ -67,19 +67,17 @@ model VerificationToken {
 }
 
 model Recipe {
-  id            String   @id @default(cuid())
-  timestamp     DateTime @default(now())
-  title         String
-  description   String
-  image         Bytes?
-  ingredients   String
-  instructions  String
-  author        User     @relation(fields: [authorId], references: [id])
-  authorId      String
-  timeToMake    Int // Cooking time in minutes
-  ratingCount   Int
-  averageRating Float
-  ratings       Rating[]
+  id           String   @id @default(cuid())
+  timestamp    DateTime @default(now())
+  title        String
+  description  String
+  image        Bytes?
+  ingredients  String
+  instructions String
+  author       User     @relation(fields: [authorId], references: [id])
+  authorId     String
+  timeToMake   Int // Cooking time in minutes
+  ratings      Rating[]
 }
 
 model Rating {
@@ -90,7 +88,8 @@ model Rating {
   recipeId String
   rating   Int
 }
+
 model Cuisine {
-  id       String @id @default(cuid())
-  name     String
+  id   String @id @default(cuid())
+  name String
 }

@@ -1,16 +1,18 @@
 import { Recipe } from '@prisma/client'
 import React, {
+  Context,
   createContext,
   Dispatch,
   SetStateAction,
   useContext,
   useState,
 } from 'react'
+import { RecipeWithRating } from '../utils/types'
 
 const HistoryContext = createContext<{
-  history: Recipe[]
-  setHistory: Dispatch<SetStateAction<Recipe[]>> | undefined
-}>({ history: [], setHistory: undefined })
+  history: RecipeWithRating[]
+  setHistory: Dispatch<SetStateAction<RecipeWithRating[]>>
+}>({history: [], setHistory: (prev) => {return prev}})
 
 export const useHistory = () => {
   return useContext(HistoryContext)
@@ -19,7 +21,7 @@ export const useHistory = () => {
 export const HistoryProvider: React.FC<{ children: JSX.Element }> = ({
   children,
 }) => {
-  const [history, setHistory] = useState<Recipe[]>([])
+  const [history, setHistory] = useState<RecipeWithRating[]>([])
 
   return (
     <HistoryContext.Provider

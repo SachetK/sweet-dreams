@@ -1,5 +1,5 @@
 import { createSSGHelpers } from '@trpc/react/ssg';
-import { GetServerSidePropsContext, InferGetServerSidePropsType, NextPage } from 'next'
+import { GetServerSidePropsContext, NextPage } from 'next'
 import { useRouter } from 'next/router';
 import HeadComponent from '../../components/HeadComponent';
 import { getServerAuthSession } from '../../server/common/get-server-auth-session'
@@ -7,11 +7,9 @@ import { appRouter } from '../../server/router';
 import { createContextInner } from '../../server/router/context';
 import { trpc } from '../../utils/trpc'
 
-const Profile: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = () => {
+const Profile: NextPage = () => {
   const userId = useRouter().query.userId as string;
-  console.log(userId);
   const { data: user } = trpc.useQuery(['user.getUser', {userId: userId}]);
-  console.log(user);
   return <>
     <HeadComponent title={"Sweet Dreams - Profile Page"} description={`Profile page for ${user?.name}`}/>
   </>
