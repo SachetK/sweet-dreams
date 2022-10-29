@@ -18,31 +18,34 @@ const RecipePage: NextPage = () => {
   ])
 
   return (
-    <main className="h-screen overflow-x-hidden overflow-y-hidden bg-main">
+    <section className="h-screen w-auto overflow-y-hidden bg-main">
       <HeadComponent
         title={'Sweet Dreams - Recipe Page'}
         description={`Recipe page for ${recipe?.title}`}
       />
 
       <NavigationBar />
-      <div className="relative left-[15%] top-12 bottom-12 h-screen w-full md:top-4 md:bottom-4">
-        <div className="grid gap-2">
-          <h1 className="col-span-3 ml-[30%] text-7xl font-bold">
+      <article className="relative left-[15%] top-12 bottom-12 h-screen w-[85%] md:top-8 md:bottom-8 2xl:left-[10%] 2xl:w-[90%]">
+        <div className="grid grid-rows-5 gap-2">
+          <h1 className="-ml-[15%] text-center text-6xl font-bold 2xl:text-8xl">
             {recipe?.title}
           </h1>
-          <div className='relative w-96 h-96'>
+          <figure className="relative h-60 w-60 2xl:h-72 2xl:w-72">
             <Image
-                className='rounded-full'
-                layout="fill"
-                src={mainImage}
-                alt={recipe?.title}
-                objectFit="cover"
-                objectPosition={'center'}
+              className="rounded-full"
+              layout="fill"
+              src={mainImage}
+              alt={recipe?.title}
+              objectFit="cover"
+              objectPosition={'center'}
             />
-          </div>
+          </figure>
+          <h2 className="text-2xl font-bold">Recipe Description</h2>
+          <h2 className="text-2xl font-bold">Time</h2>
+          <h2 className="text-2xl font-bold">Serving</h2>
         </div>
-      </div>
-    </main>
+      </article>
+    </section>
   )
 }
 
