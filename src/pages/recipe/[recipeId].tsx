@@ -6,6 +6,9 @@ import { appRouter } from '../../server/router'
 import { createContextInner } from '../../server/router/context'
 import { trpc } from '../../utils/trpc'
 import { getServerAuthSession } from '../../server/common/get-server-auth-session'
+import Image from 'next/image'
+import mainImage from '../../../public/sweet-dreams-main.png'
+import NavigationBar from '../../components/NavigationBar'
 
 const RecipePage: NextPage = () => {
   const recipeId = useRouter().query.recipeId as string
@@ -15,12 +18,31 @@ const RecipePage: NextPage = () => {
   ])
 
   return (
-    <>
+    <main className="h-screen overflow-x-hidden overflow-y-hidden bg-main">
       <HeadComponent
         title={'Sweet Dreams - Recipe Page'}
         description={`Recipe page for ${recipe?.title}`}
       />
-    </>
+
+      <NavigationBar />
+      <div className="relative left-[15%] top-12 bottom-12 h-screen w-full md:top-4 md:bottom-4">
+        <div className="grid gap-2">
+          <h1 className="col-span-3 ml-[30%] text-7xl font-bold">
+            {recipe?.title}
+          </h1>
+          <div className='relative w-96 h-96'>
+            <Image
+                className='rounded-full'
+                layout="fill"
+                src={mainImage}
+                alt={recipe?.title}
+                objectFit="cover"
+                objectPosition={'center'}
+            />
+          </div>
+        </div>
+      </div>
+    </main>
   )
 }
 
