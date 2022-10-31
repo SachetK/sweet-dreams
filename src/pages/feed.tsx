@@ -72,30 +72,30 @@ const RecipeCard: React.FC<{
   return (
     <>
       <div className="mt-2 mb-11 w-max space-y-2 overflow-y-scroll scrollbar-hide">
-        <div className="flex mb-2 flex-row items-center space-x-8">
-        <HeadingBanner title={title} />
-        <div>
-          <button
-            type="button"
-            className="w-max bg-pink-dark clip-path-button-prev"
-            onClick={() => setCurrPage((curr) => curr - 1)}
-            disabled={currPage === 1}
-          >
-            <p className="mx-6 pl-3 py-1 text-center font-sans text-lg font-medium text-white">
-              Previous
-            </p>
-          </button>
-          <button
-            type="button"
-            className="ml-2 w-max bg-pink-dark clip-path-button-next"
-            onClick={() => setCurrPage((curr) => curr + 1)}
-            disabled={isPreviousData || currPage * size >= (data?.count ?? 0)}
-          >
-            <p className="mx-6 pr-4 py-1 text-center font-sans text-lg font-medium text-white">
-              Next
-            </p>
-          </button>
-        </div>
+        <div className="mb-2 flex flex-row items-center space-x-8">
+          <HeadingBanner title={title} />
+          <div>
+            <button
+              type="button"
+              className="w-max bg-pink-dark clip-path-button-prev"
+              onClick={() => setCurrPage((curr) => curr - 1)}
+              disabled={currPage === 1}
+            >
+              <p className="mx-6 py-1 pl-3 text-center font-sans text-lg font-medium text-white">
+                Previous
+              </p>
+            </button>
+            <button
+              type="button"
+              className="ml-2 w-max bg-pink-dark clip-path-button-next"
+              onClick={() => setCurrPage((curr) => curr + 1)}
+              disabled={isPreviousData || currPage * size >= (data?.count ?? 0)}
+            >
+              <p className="mx-6 py-1 pr-4 text-center font-sans text-lg font-medium text-white">
+                Next
+              </p>
+            </button>
+          </div>
         </div>
         {isLoading ? (
           <div>Loading...</div>

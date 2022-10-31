@@ -6,39 +6,29 @@ import NavigationBar from '../components/NavigationBar'
 const About: NextPage = () => {
   return (
     <>
-  <main className="h-screen overflow-x-hidden bg-main">
-    <NavigationBar />
-    <div className="flex h-screen flex-col items-center justify-center mt-11 space-y-40">
-      <HeadComponent
-        title="Sweet Dreams - About"
-        description="About page for Sweet Dreams app"
-      />
+      <main className="h-screen overflow-x-hidden bg-main">
+        <NavigationBar />
+        <div className="mt-11 flex h-screen flex-col items-center justify-center space-y-40">
+          <HeadComponent
+            title="Sweet Dreams - About"
+            description="About page for Sweet Dreams app"
+          />
 
-      <HeadingBanner 
-      title="About the Creators" 
-      />
+          <HeadingBanner title="About the Creators" />
+        </div>
 
-      </div>
-
-    <div className="flex h-screen flex-col ml-48 mt-44">
-
-    {/*
+        <div className="ml-48 mt-44 flex h-screen flex-col">
+          {/*
       have HeadingBanner with names (should go in ABC order) 
       */}
+        </div>
 
-      </div>
-
-    <div className="">
-
-    {/*
+        <div className="">
+          {/*
       textboxes with bios 
       */}
-
-      </div>
-
-    </main>
-
-
+        </div>
+      </main>
     </>
   )
 }
