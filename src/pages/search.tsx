@@ -2,6 +2,7 @@ import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
 import { Session } from 'next-auth'
 import { useEffect, useMemo, useState } from 'react'
 import HeadComponent from '../components/HeadComponent'
+import NavigationBar from '../components/NavigationBar'
 import RecipeComponent from '../components/RecipeComponent'
 import { getServerAuthSession } from '../server/common/get-server-auth-session'
 import { trpc } from '../utils/trpc'
@@ -41,7 +42,8 @@ const Search: NextPage = () => {
   return (
     <main className="flex h-screen flex-col items-center space-y-2 overflow-y-scroll bg-main scrollbar-hide">
       <HeadComponent title="Sweet Dreams - Search" description="Search Page" />
-      <div className="mt-2 flex flex-row space-x-2">
+      <NavigationBar />
+      <div className="mt-2 flex flex-row space-x-4">
         <form>
           <input
             type="text"
@@ -53,19 +55,23 @@ const Search: NextPage = () => {
         </form>
         <button
           type="button"
-          className="bg-red"
-          onClick={() => setCurrPage((curr) => curr + 1)}
-          disabled={isPreviousData || currPage * size >= (data?.count ?? 0)}
-        >
-          Next
-        </button>
-        <button
-          type="button"
-          className="ml-4 bg-red"
+          className="w-max bg-red clip-path-button-prev"
           onClick={() => setCurrPage((curr) => curr - 1)}
           disabled={currPage === 1}
         >
-          Prev
+          <p className="mx-6 pl-3 text-center font-sans text-xl font-medium text-white">
+            Previous
+          </p>
+        </button>
+        <button
+          type="button"
+          className="ml-4 w-max bg-red clip-path-button-next"
+          onClick={() => setCurrPage((curr) => curr + 1)}
+          disabled={isPreviousData || currPage * size >= (data?.count ?? 0)}
+        >
+          <p className="mx-6 pr-4 text-center font-sans text-xl font-medium text-white">
+            Next
+          </p>
         </button>
       </div>
       <div className="my-2 w-max space-y-2">

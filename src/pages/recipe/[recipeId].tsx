@@ -16,7 +16,13 @@ const RecipePage: NextPage = () => {
     'recipe.getRecipeById',
     { id: recipeId },
   ])
-
+  const timeToCook = !recipe?.timeToMake
+    ? 0
+    : `${
+        recipe?.timeToMake / 60 < 0
+          ? ''
+          : Math.floor(recipe?.timeToMake / 60) + 'hours'
+      } ${recipe?.timeToMake / 60 > 0 ? ' and ' : recipe?.timeToMake % 60} mins`
   return (
     <section className="h-screen w-auto overflow-y-hidden bg-main">
       <HeadComponent
@@ -26,23 +32,57 @@ const RecipePage: NextPage = () => {
 
       <NavigationBar />
       <article className="relative left-[15%] top-12 bottom-12 h-screen w-[85%] md:top-8 md:bottom-8 2xl:left-[10%] 2xl:w-[90%]">
-        <div className="grid grid-rows-5 gap-2">
-          <h1 className="-ml-[15%] text-center text-6xl font-bold 2xl:text-8xl">
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="-ml-[15%] w-full text-center text-6xl font-bold 2xl:-ml-[10%] 2xl:text-8xl">
             {recipe?.title}
           </h1>
-          <figure className="relative h-60 w-60 2xl:h-72 2xl:w-72">
-            <Image
-              className="rounded-full"
-              layout="fill"
-              src={mainImage}
-              alt={recipe?.title}
-              objectFit="cover"
-              objectPosition={'center'}
-            />
-          </figure>
-          <h2 className="text-2xl font-bold">Recipe Description</h2>
-          <h2 className="text-2xl font-bold">Time</h2>
-          <h2 className="text-2xl font-bold">Serving</h2>
+          <div className="mr-12 mt-[5%] grid h-full w-full grid-flow-col grid-cols-3 grid-rows-5 place-items-center gap-6">
+            <figure className="relative row-span-3 h-60 w-60 2xl:h-72 2xl:w-72">
+              <Image
+                className="rounded-full"
+                layout="fill"
+                src={mainImage}
+                alt={recipe?.title}
+                objectFit="cover"
+                objectPosition={'center'}
+              />
+            </figure>
+
+            <div className="row-span-2 flex h-full w-full flex-col items-center justify-center rounded-3xl bg-yellow">
+              <h2 className="text-2xl font-bold">Recipe Description</h2>
+              <p className="text-lg font-medium">{recipe?.description}</p>
+            </div>
+
+            <div className="flex h-full w-full flex-wrap items-center justify-center rounded-3xl bg-yellow">
+              <h2 className="text-2xl font-bold">
+                Time: {!timeToCook ? 'Not given' : timeToCook}
+              </h2>
+            </div>
+
+            <div className="flex h-full w-full  items-center justify-center rounded-3xl bg-yellow">
+              <h2 className="text-2xl font-bold">
+                Serving: {recipe?.servings ?? 0} servings
+              </h2>
+            </div>
+
+            <div className="row-span-3 flex h-full w-full flex-col items-center justify-center rounded-3xl bg-yellow">
+              <h2 className="text-2xl font-bold">Ingredients</h2>
+              <ol className=" text-2xl font-bold">
+                {recipe?.ingredients?.map((ingredient) => {
+                  return <li key={ingredient}>{ingredient}</li>
+                })}
+              </ol>
+            </div>
+
+            <div className=" row-span-5 flex h-full w-full  flex-col items-center justify-center rounded-3xl bg-yellow">
+              <h2 className="text-2xl font-bold">Instructions</h2>
+              <ol className=" text-2xl font-bold">
+                {recipe?.instructions?.map((instruction) => {
+                  return <li key={instruction}>{instruction}</li>
+                })}
+              </ol>
+            </div>
+          </div>
         </div>
       </article>
     </section>

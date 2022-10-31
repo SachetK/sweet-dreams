@@ -72,11 +72,12 @@ model Recipe {
   title        String
   description  String
   image        Bytes?
-  ingredients  String
-  instructions String
+  ingredients  String[]
+  instructions String[]
   author       User     @relation(fields: [authorId], references: [id])
   authorId     String
-  timeToMake   Int // Cooking time in minutes
+  servings     Int      @default(1)
+  timeToMake   Int      @default(0) //Cooking time in minutes 
   ratings      Rating[]
 }
 
