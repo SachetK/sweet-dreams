@@ -20,9 +20,6 @@ const Welcome: NextPage = () => {
             borderColor="border-pink-dark"
           />
         </div>
-
-        <h1>Welcome to the world!</h1>
-        <p>{`Jessie's world`}</p>
       </main>
     </>
   )
