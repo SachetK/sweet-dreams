@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { FC } from 'react'
 import continueIcon from '../../public/continue-main.png'
 
 type ButtonComponentProps = {
@@ -9,7 +8,7 @@ type ButtonComponentProps = {
   href?: string
 }
 
-const ButtonComponent: FC<ButtonComponentProps> = ({
+const ButtonComponent: React.FC<ButtonComponentProps> = ({
   text,
   color,
   borderColor,

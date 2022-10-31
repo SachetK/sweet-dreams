@@ -10,17 +10,16 @@ module.exports = {
         pink: '#fac0bb',
         'pink-dark': '#e1968f',
         'dark-red': '#a64d4d',
+        yellow: '#ffe985',
       },
       clipPath: {
         heading:
           'polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)',
       },
       backgroundImage: {
-        'main': "url('public/background-image.png')",
+        main: "url('../../public/background-image.png')",
       },
     },
   },
-  plugins: [
-    require('tailwind-clip-path')
-  ],
+  plugins: [require('tailwind-clip-path'), require('tailwind-scrollbar-hide')],
 }

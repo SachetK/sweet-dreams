@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     <>
       <HeadComponent title="Sweet Dreams" description="Sweet Dreams app" />
 
-      <main className="bg-blue">
+      <main className="bg-main">
         <div className="flex h-screen flex-col items-center justify-center">
           <div className="flex-initial">
             <Image
