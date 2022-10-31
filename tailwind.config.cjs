@@ -15,11 +15,17 @@ module.exports = {
       clipPath: {
         heading:
           'polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)',
+        'button-prev': 'polygon(20% 0, 100% 0, 100% 100%, 20% 100%, 0 50%);',
+        'button-next': 'polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);',
       },
       backgroundImage: {
         main: "url('../../public/background-image.png')",
       },
     },
   },
-  plugins: [require('tailwind-clip-path'), require('tailwind-scrollbar-hide')],
+  plugins: [
+    require('tailwind-clip-path'),
+    require('tailwind-scrollbar-hide'),
+    require('@tailwindcss/forms'),
+  ],
 }

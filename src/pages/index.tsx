@@ -3,8 +3,12 @@ import Image from 'next/image'
 import homeImage from '../../public/sweet-dreams-main.png'
 import HeadComponent from '../components/HeadComponent'
 import ButtonComponent from '../components/ButtonComponent'
+import { signIn, useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 const Home: NextPage = () => {
+  const { data: session } = useSession()
+
   return (
     <>
       <HeadComponent title="Sweet Dreams" description="Sweet Dreams app" />
@@ -20,11 +24,25 @@ const Home: NextPage = () => {
               priority={true}
             />
           </div>
-          <ButtonComponent
-            text="Find your favorite recipies!"
-            borderColor="border-pink-dark"
-            color="bg-pink"
-          />
+          {!session ? (
+            <div onClick={() => signIn('google', { callbackUrl: '/feed' })}>
+              <ButtonComponent
+                text="Sign in with Google"
+                color="bg-pink"
+                borderColor="border-pink-dark"
+              />
+            </div>
+          ) : (
+            <Link href="/feed">
+              <a>
+                <ButtonComponent
+                  text="Find your favorite recipes!"
+                  color="bg-pink"
+                  borderColor="border-pink-dark"
+                />
+              </a>
+            </Link>
+          )}
         </div>
       </main>
     </>

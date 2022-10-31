@@ -1,7 +1,7 @@
 import { z } from 'zod'
-import { createRouter } from './context'
+import { createProtectedRouter } from './context'
 
-export const recipeRouter = createRouter()
+export const recipeRouter = createProtectedRouter()
   .query('getRecipesByNewest', {
     input: z.object({
       page: z.number(),
@@ -14,6 +14,9 @@ export const recipeRouter = createRouter()
         take: recipesPerPage,
         orderBy: {
           timestamp: 'asc',
+        },
+        include: {
+          ratings: true,
         },
       })
       const count = await ctx.prisma.recipe.count()
@@ -35,6 +38,9 @@ export const recipeRouter = createRouter()
         take: recipesPerPage,
         orderBy: {
           timestamp: 'asc',
+        },
+        include: {
+          ratings: true,
         },
       })
       const count = await ctx.prisma.recipe.count()
@@ -60,11 +66,61 @@ export const recipeRouter = createRouter()
         orderBy: {
           timestamp: 'asc',
         },
+        include: {
+          ratings: true,
+        },
       })
       const count = await ctx.prisma.recipe.count()
       return {
         recipes,
         count,
       }
+    },
+  })
+  .query('getRecipeById', {
+    input: z.object({
+      id: z.string().cuid(),
+    }),
+    resolve: async ({ ctx, input: { id } }) => {
+      const recipe = await ctx.prisma.recipe.findUniqueOrThrow({
+        where: {
+          id,
+        },
+        include: {
+          ratings: true,
+        },
+      })
+      return recipe
+    },
+  })
+  .mutation('createRecipe', {
+    input: z.object({
+      title: z.string(),
+      description: z.string(),
+      ingredients: z.string(),
+      instructions: z.string(),
+      timeToMake: z.number(),
+    }),
+    resolve: async ({
+      ctx,
+      input: { title, description, ingredients, instructions, timeToMake },
+    }) => {
+      const recipe = await ctx.prisma.recipe.create({
+        data: {
+          title,
+          description,
+          ingredients,
+          instructions,
+          authorId: ctx.session.user.id,
+          timeToMake,
+          ratings: {
+            create: {
+              rating: 0,
+              userId: ctx.session.user.id,
+            },
+          },
+        },
+      })
+      return recipe
     },
   })
