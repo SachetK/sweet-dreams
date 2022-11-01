@@ -11,6 +11,14 @@ module.exports = {
         'pink-dark': '#e1968f',
         'dark-red': '#a64d4d',
         yellow: '#ffe985',
+        green: '#abcb99',
+        purple: '#d2cad7',
+        orange: '#ffc688',
+        blue: '#72acae',
+        'green-dark': '#7fa867',
+        'blue-dark': '#548b8d',
+        'purple-dark': '#b4a6bd',
+        'orange-dark': '#d8a267',
       },
       clipPath: {
         heading:

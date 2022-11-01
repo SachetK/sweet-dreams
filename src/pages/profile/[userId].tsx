@@ -10,6 +10,7 @@ import { createContextInner } from '../../server/router/context'
 import { trpc } from '../../utils/trpc'
 import ButtonComponent from '../../components/ButtonComponent'
 import { useRef, useState } from 'react'
+import Link from 'next/link'
 
 const Profile: NextPage = () => {
   const util = trpc.useContext()
@@ -19,6 +20,7 @@ const Profile: NextPage = () => {
   const [bio, setBio] = useState<string>(user?.bio ?? '')
   const [allergy, setAllergy] = useState<string>('')
   const allergyRef = useRef<HTMLInputElement>(null)
+
   const updateAllergy = trpc.useMutation('user.updateAllergy', {
     onSuccess: () => {
       util.invalidateQueries(['user.getUser', { userId: userId }])
@@ -32,28 +34,30 @@ const Profile: NextPage = () => {
 
   return (
     <>
-      <HeadComponent
-        title={'Sweet Dreams - Profile Page'}
-        description={`Profile page for ${user?.name}`}
-      />
       <main className="h-screen overflow-x-hidden bg-main">
-        <NavigationBar />
-        <div className="relative left-10 top-12 bottom-12 h-screen w-full md:left-12 md:top-8 md:bottom-4">
+        <HeadComponent
+          title={'Sweet Dreams - Profile Page'}
+          description={`Profile page for ${user?.name}`}
+        />
+        <div className="relative left-10 top-12 h-screen w-full md:left-12 md:top-8 md:bottom-4">
+          <div className='absolute'>
+            <NavigationBar />
+          </div>
           <h1 className="mb-4 text-center text-4xl font-bold">
             Hello {user?.name}!
           </h1>
-          <section className="flex flex-row items-center justify-center space-x-8">
+          <section className="flex ml-12 flex-row items-center justify-center space-x-8">
             <Image
               src={user?.image ?? '/default.png'}
               alt="Profile picture"
-              height={300}
-              width={300}
+              height={200}
+              width={200}
               className="rounded-full"
             />
             <div className="flex w-1/4 flex-col items-center justify-center space-y-4">
-              <div className="flex h-48 w-full items-center justify-center align-middle rounded-3xl bg-yellow">
+              <div className="flex h-32 w-full items-center justify-center rounded-3xl bg-yellow align-middle">
                 <p
-                  className="h-full w-full rounded-3xl p-4 text-center text-xl font-bold"
+                  className="h-full w-full rounded-3xl p-4 text-center text-lg font-bold"
                   contentEditable={true}
                   suppressContentEditableWarning={true}
                   onInput={(e) => {
@@ -77,14 +81,17 @@ const Profile: NextPage = () => {
               />
             </div>
             <div className="flex w-1/4 flex-col items-center justify-center space-y-4">
-              <div className="flex flex-col h-48 w-full items-center justify-center rounded-3xl bg-yellow overflow-y-auto">
-                <h3 className="p-4 text-center text-xl font-bold align-middle"> Allergies </h3>
+              <div className="flex h-32 w-full flex-col items-center overflow-auto rounded-3xl bg-yellow scrollbar-hide">
+                <h3 className="p-4 text-center text-xl font-bold">
+                  {' '}
+                  Allergies{' '}
+                </h3>
                 <ol className="text-center text-lg">
-                    {!user?.allergies?.toString()
+                  {!user?.allergies?.toString()
                     ? 'No allergies yet!'
-                    : user?.allergies?.map(
-                      allergy => <li key={allergy}>{allergy}</li>
-                    )}
+                    : user?.allergies?.map((allergy) => (
+                        <li key={allergy}>{allergy}</li>
+                      ))}
                 </ol>
               </div>
               <ButtonComponent
@@ -147,6 +154,47 @@ const Profile: NextPage = () => {
               </div>
             </div>
           </div>
+          <section className="mx-24 my-6 grid grid-cols-2 grid-rows-2 place-items-center gap-8">
+            <Link href="/profile/collections">
+              <a>
+                <ButtonComponent
+                  text="Saved Collections"
+                  color="bg-orange"
+                  borderColor="border-orange-dark"
+                />
+              </a>
+            </Link>
+
+            <Link href="/profile/recipes">
+              <a>
+                <ButtonComponent
+                  text="Saved Recipes"
+                  color="bg-purple"
+                  borderColor="border-purple-dark"
+                />
+              </a>
+            </Link>
+            
+            <Link href="/history">
+              <a>
+                <ButtonComponent
+                  text="Recipe History"
+                  color="bg-green"
+                  borderColor="border-green-dark"
+                />
+              </a>
+            </Link>
+            
+            <Link href="/about">
+              <a>
+                <ButtonComponent
+                  text="Help & Contact"
+                  color="bg-blue"
+                  borderColor="border-blue-dark"
+                />
+              </a>
+            </Link>
+          </section>
         </div>
       </main>
     </>
