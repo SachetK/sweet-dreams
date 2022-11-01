@@ -10,53 +10,56 @@ import Anthony from '../../public/profile/Anthony.jpg'
 const About: NextPage = () => {
   return (
     <>
-  <main className="h-screen overflow-x-hidden bg-main">
-    <NavigationBar />
-    <div className="flex h-screen flex-col items-center justify-center mt-11">
-      <HeadComponent
-        title="Sweet Dreams - About"
-        description="About Page for Sweet Dreams App"
-      />
-      <HeadingBanner 
-      title="About the Creators" 
-      />
-    </div>
-
-    <div className="flex-col ml-48 mt-44 space-y-96">
-    <Image
-      src={JiaXi}
-      alt="JiaXi"
-      height={400}
-      width={300}
-      priority={true}
-      />
-
-    <Image
-      src={Sachet}
-      alt="Sachet"
-      height={400}
-      width={300}
-      priority={true}
-      />
-
-    <Image
-      src={Anthony}
-      alt="Anthony"
-      height={400}
-      width={300}
-      priority={true}
-      />
-    </div>
-
-    <div className="">
-
-    {/*
-      textboxes with bios 
-      */}
-
-      </div>
-
-    </main>
+      <main className="h-screen overflow-x-hidden bg-main">
+        <NavigationBar />
+        <div className="ml-52 mt-11">
+          <HeadComponent
+            title="Sweet Dreams - About"
+            description="About Page for Sweet Dreams App"
+          />
+          <HeadingBanner title="About the Creators" />
+          <div className="mt-16 flex w-48 flex-col justify-center space-y-11">
+            <div className="flex flex-row gap-x-8">
+              <div>
+                <Image
+                  src={JiaXi}
+                  alt="JiaXi"
+                  height={300}
+                  width={225}
+                  priority={true}
+                />
+              </div>
+              <p className="gap-x-8">hi</p>
+            </div>
+            <div className="flex flex-row">
+              <div>
+                <Image
+                  src={Sachet}
+                  alt="Sachet"
+                  height={300}
+                  width={225}
+                  priority={true}
+                />
+              </div>
+              <p>hi</p>
+            </div>
+            <div className="flex flex-row">
+              <div>
+                <Image
+                  src={Anthony}
+                  alt="Anthony"
+                  height={300}
+                  width={225}
+                  priority={true}
+                />
+              </div>
+              <p>hi</p>
+            </div>
+          </div>
+        </div>
+      </main>
     </>
   )
 }
+
+export default About
