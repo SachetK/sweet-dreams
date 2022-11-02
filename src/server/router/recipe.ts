@@ -109,7 +109,7 @@ export const recipeRouter = createProtectedRouter()
         },
       })
       return recipes
-    }
+    },
   })
   .mutation('createRecipe', {
     input: z.object({

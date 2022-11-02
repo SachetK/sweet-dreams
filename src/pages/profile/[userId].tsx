@@ -102,7 +102,7 @@ const Profile: NextPage = () => {
               />
             </div>
           </section>
-          <section className="mx-[25%] mt-[10%] w-max flex flex-row items-center justify-center gap-6">
+          <section className="mx-[25%] mt-[10%] flex w-max flex-row items-center justify-center gap-6">
             <Link href="/profile/recipes">
               <a>
                 <ButtonComponent
