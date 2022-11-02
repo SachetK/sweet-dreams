@@ -47,3 +47,19 @@ export const userRouter = createProtectedRouter()
       return user
     },
   })
+  .mutation('saveRecipe', {
+    input: z.object({
+      savedRecipes: z.string().max(1000).array(),
+    }),
+    resolve: async ({ ctx, input: { savedRecipes } }) => {
+      const user = await ctx.prisma.user.update({
+        where: {
+          id: ctx.session.user.id,
+        },
+        data: {
+          savedRecipes,
+        },
+      })
+      return user
+    },
+  })

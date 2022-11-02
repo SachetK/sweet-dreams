@@ -93,12 +93,30 @@ export const recipeRouter = createProtectedRouter()
       return recipe
     },
   })
+  .query('getRecipesByIds', {
+    input: z.object({
+      ids: z.string().cuid().array(),
+    }),
+    resolve: async ({ ctx, input: { ids } }) => {
+      const recipes = await ctx.prisma.recipe.findMany({
+        where: {
+          id: {
+            in: ids,
+          },
+        },
+        include: {
+          ratings: true,
+        },
+      })
+      return recipes
+    }
+  })
   .mutation('createRecipe', {
     input: z.object({
       title: z.string(),
       description: z.string(),
-      ingredients: z.string(),
-      instructions: z.string(),
+      ingredients: z.string().array(),
+      instructions: z.string().array(),
       timeToMake: z.number(),
     }),
     resolve: async ({
@@ -139,7 +157,7 @@ export const recipeRouter = createProtectedRouter()
         },
       })
       const existingRating = recipe.ratings.find(
-        (r) => r.userId === ctx.session.user.id
+        (r) => r.userId === ctx.session.user.id,
       )
       if (existingRating) {
         await ctx.prisma.rating.update({
@@ -160,5 +178,5 @@ export const recipeRouter = createProtectedRouter()
         })
       }
       return recipe
-    }
+    },
   })

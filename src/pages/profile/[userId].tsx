@@ -40,13 +40,13 @@ const Profile: NextPage = () => {
           description={`Profile page for ${user?.name}`}
         />
         <div className="relative left-10 top-12 h-screen w-full md:left-12 md:top-8 md:bottom-4">
-          <div className='absolute'>
+          <div className="absolute">
             <NavigationBar />
           </div>
           <h1 className="mb-4 text-center text-4xl font-bold">
             Hello {user?.name}!
           </h1>
-          <section className="flex ml-12 flex-row items-center justify-center space-x-8">
+          <section className="ml-12 flex flex-row items-center justify-center space-x-8">
             <Image
               src={user?.image ?? '/default.png'}
               alt="Profile picture"
@@ -102,17 +102,7 @@ const Profile: NextPage = () => {
               />
             </div>
           </section>
-          <section className="mx-24 my-6 grid grid-cols-2 grid-rows-2 place-items-center gap-8">
-            <Link href="/profile/collections">
-              <a>
-                <ButtonComponent
-                  text="Saved Collections"
-                  color="bg-orange"
-                  borderColor="border-orange-dark"
-                />
-              </a>
-            </Link>
-
+          <section className="mx-[25%] mt-[10%] w-max flex flex-row items-center justify-center gap-6">
             <Link href="/profile/recipes">
               <a>
                 <ButtonComponent
@@ -122,7 +112,7 @@ const Profile: NextPage = () => {
                 />
               </a>
             </Link>
-            
+
             <Link href="/history">
               <a>
                 <ButtonComponent
@@ -132,7 +122,7 @@ const Profile: NextPage = () => {
                 />
               </a>
             </Link>
-            
+
             <Link href="/about">
               <a>
                 <ButtonComponent

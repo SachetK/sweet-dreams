@@ -33,6 +33,8 @@ const NavigationBar: React.FC = () => {
           />
         </a>
       </Link>
+      <Link href='/new'>
+      <a>
       <div className="relative w-full">
         <Image
           src={insertIcon}
@@ -42,6 +44,8 @@ const NavigationBar: React.FC = () => {
           alt="Navigation bar"
         />
       </div>
+      </a>
+      </Link>
       <Link href={`/profile/${session?.user?.id}`}>
         <a>
           <div className="relative w-full">

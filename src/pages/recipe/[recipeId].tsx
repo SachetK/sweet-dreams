@@ -18,10 +18,12 @@ const RecipePage: NextPage = () => {
     'recipe.getRecipeById',
     { id: recipeId },
   ])
-  const rateRecipe = trpc.useMutation('recipe.rateRecipe') 
+  const rateRecipe = trpc.useMutation('recipe.rateRecipe')
 
   const { data: session } = useSession()
-  const [rating, setRating] = useState<number>(recipe?.ratings.find((r) => r.userId === session?.user?.id )?.rating ?? 0)
+  const [rating, setRating] = useState<number>(
+    recipe?.ratings.find((r) => r.userId === session?.user?.id)?.rating ?? 0,
+  )
   const timeToCook = !recipe?.timeToMake
     ? 0
     : `${
@@ -29,9 +31,8 @@ const RecipePage: NextPage = () => {
           ? ''
           : Math.floor(recipe?.timeToMake / 60) + 'hours'
       } ${recipe?.timeToMake / 60 > 0 ? ' and ' : recipe?.timeToMake % 60} mins`
-  
-  
-      return (
+
+  return (
     <section className="h-screen w-auto overflow-y-hidden bg-main">
       <HeadComponent
         title={'Sweet Dreams - Recipe Page'}
@@ -45,22 +46,38 @@ const RecipePage: NextPage = () => {
             {recipe?.title}
           </h1>
           <div className="mr-12 mt-[3%] grid h-full w-full grid-flow-col grid-cols-3 grid-rows-5 place-items-center gap-6">
-              <div className='row-span-3 flex flex-col items-center'>
-            <figure className="relative h-60 w-60 2xl:h-72 2xl:w-72">
-              <Image
-                className="rounded-full"
-                layout="fill"
-                src={mainImage}
-                alt={recipe?.title}
-                objectFit="cover"
-                objectPosition={'center'}
+            <div className="row-span-3 flex flex-col items-center">
+              <figure className="relative h-60 w-60 2xl:h-72 2xl:w-72">
+                <Image
+                  className="rounded-full"
+                  layout="fill"
+                  src={mainImage}
+                  alt={recipe?.title}
+                  objectFit="cover"
+                  objectPosition={'center'}
+                />
+              </figure>
+              <input
+                type="range"
+                id="rating"
+                name="rating"
+                min="0"
+                max="5"
+                onChange={(e) => {
+                  setRating(e.target.valueAsNumber)
+                }}
               />
-            </figure>
-              <input type="range" id="rating" name="rating"
-                    min="0" max="5" onChange={(e) => {setRating(e.target.valueAsNumber)}}/>
               <label className="flex flex-row space-x-6" htmlFor="rating">
-                <p className='text-lg'>Rating: {rating}</p>
-                <button className='bg-red px-4 text-lg font-bold'type='button' onClick={() => {rateRecipe.mutate({id: recipeId, rating})}}>Rate</button>
+                <p className="text-lg">Rating: {rating}</p>
+                <button
+                  className="bg-red px-4 text-lg font-bold"
+                  type="button"
+                  onClick={() => {
+                    rateRecipe.mutate({ id: recipeId, rating })
+                  }}
+                >
+                  Rate
+                </button>
               </label>
             </div>
 
