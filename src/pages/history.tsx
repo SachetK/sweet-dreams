@@ -1,8 +1,6 @@
 import { NextPage } from "next";
-import { useSession } from "next-auth/react";
 import { useHistory } from "../components/HistoryProvider";
 import RecipeComponent from "../components/RecipeComponent";
-import { trpc } from "../utils/trpc";
 
 const History: NextPage = () => {
     const { history } = useHistory()
