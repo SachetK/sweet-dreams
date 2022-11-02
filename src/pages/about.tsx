@@ -6,6 +6,7 @@ import Image from 'next/image'
 import JiaXi from '../../public/profile/JiaXi.jpg'
 import Sachet from '../../public/profile/Sachet.jpg'
 import Anthony from '../../public/profile/Anthony.jpg'
+import Sakash from '../../public/profile/Sakash.jpg'
 import Link from 'next/link'
 import ButtonComponent from '../components/ButtonComponent'
 
@@ -74,8 +75,8 @@ const About: NextPage = () => {
         <div className="flex flex-row space-x-8 text-lg"> 
           <div className="flex-none">
            <Image
-            src={Anthony}
-            alt="Anthony"
+            src={Sakash}
+            alt="Sakash"
             height={300}
             width={225}
             priority={true}
