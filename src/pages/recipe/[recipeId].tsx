@@ -9,6 +9,8 @@ import { getServerAuthSession } from '../../server/common/get-server-auth-sessio
 import Image from 'next/image'
 import mainImage from '../../../public/sweet-dreams-main.png'
 import NavigationBar from '../../components/NavigationBar'
+import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 
 const RecipePage: NextPage = () => {
   const recipeId = useRouter().query.recipeId as string
@@ -16,6 +18,10 @@ const RecipePage: NextPage = () => {
     'recipe.getRecipeById',
     { id: recipeId },
   ])
+  const rateRecipe = trpc.useMutation('recipe.rateRecipe') 
+
+  const { data: session } = useSession()
+  const [rating, setRating] = useState<number>(recipe?.ratings.find((r) => r.userId === session?.user?.id )?.rating ?? 0)
   const timeToCook = !recipe?.timeToMake
     ? 0
     : `${
@@ -23,7 +29,9 @@ const RecipePage: NextPage = () => {
           ? ''
           : Math.floor(recipe?.timeToMake / 60) + 'hours'
       } ${recipe?.timeToMake / 60 > 0 ? ' and ' : recipe?.timeToMake % 60} mins`
-  return (
+  
+  
+      return (
     <section className="h-screen w-auto overflow-y-hidden bg-main">
       <HeadComponent
         title={'Sweet Dreams - Recipe Page'}
@@ -36,8 +44,9 @@ const RecipePage: NextPage = () => {
           <h1 className="-ml-[15%] w-full text-center text-6xl font-bold 2xl:-ml-[10%] 2xl:text-8xl">
             {recipe?.title}
           </h1>
-          <div className="mr-12 mt-[5%] grid h-full w-full grid-flow-col grid-cols-3 grid-rows-5 place-items-center gap-6">
-            <figure className="relative row-span-3 h-60 w-60 2xl:h-72 2xl:w-72">
+          <div className="mr-12 mt-[3%] grid h-full w-full grid-flow-col grid-cols-3 grid-rows-5 place-items-center gap-6">
+              <div className='row-span-3 flex flex-col items-center'>
+            <figure className="relative h-60 w-60 2xl:h-72 2xl:w-72">
               <Image
                 className="rounded-full"
                 layout="fill"
@@ -47,6 +56,13 @@ const RecipePage: NextPage = () => {
                 objectPosition={'center'}
               />
             </figure>
+              <input type="range" id="rating" name="rating"
+                    min="0" max="5" onChange={(e) => {setRating(e.target.valueAsNumber)}}/>
+              <label className="flex flex-row space-x-6" htmlFor="rating">
+                <p className='text-lg'>Rating: {rating}</p>
+                <button className='bg-red px-4 text-lg font-bold'type='button' onClick={() => {rateRecipe.mutate({id: recipeId, rating})}}>Rate</button>
+              </label>
+            </div>
 
             <div className="row-span-2 flex h-full w-full flex-col items-center justify-center rounded-3xl bg-yellow">
               <h2 className="text-2xl font-bold">Recipe Description</h2>

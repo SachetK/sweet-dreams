@@ -124,3 +124,41 @@ export const recipeRouter = createProtectedRouter()
       return recipe
     },
   })
+  .mutation('rateRecipe', {
+    input: z.object({
+      id: z.string().cuid(),
+      rating: z.number(),
+    }),
+    resolve: async ({ ctx, input: { id, rating } }) => {
+      const recipe = await ctx.prisma.recipe.findUniqueOrThrow({
+        where: {
+          id,
+        },
+        include: {
+          ratings: true,
+        },
+      })
+      const existingRating = recipe.ratings.find(
+        (r) => r.userId === ctx.session.user.id
+      )
+      if (existingRating) {
+        await ctx.prisma.rating.update({
+          where: {
+            id: existingRating.id,
+          },
+          data: {
+            rating,
+          },
+        })
+      } else {
+        await ctx.prisma.rating.create({
+          data: {
+            rating,
+            userId: ctx.session.user.id,
+            recipeId: id,
+          },
+        })
+      }
+      return recipe
+    }
+  })

@@ -102,6 +102,47 @@ const Profile: NextPage = () => {
               />
             </div>
           </section>
+          <section className="mx-24 my-6 grid grid-cols-2 grid-rows-2 place-items-center gap-8">
+            <Link href="/profile/collections">
+              <a>
+                <ButtonComponent
+                  text="Saved Collections"
+                  color="bg-orange"
+                  borderColor="border-orange-dark"
+                />
+              </a>
+            </Link>
+
+            <Link href="/profile/recipes">
+              <a>
+                <ButtonComponent
+                  text="Saved Recipes"
+                  color="bg-purple"
+                  borderColor="border-purple-dark"
+                />
+              </a>
+            </Link>
+            
+            <Link href="/history">
+              <a>
+                <ButtonComponent
+                  text="Recipe History"
+                  color="bg-green"
+                  borderColor="border-green-dark"
+                />
+              </a>
+            </Link>
+            
+            <Link href="/about">
+              <a>
+                <ButtonComponent
+                  text="Help & Contact"
+                  color="bg-blue"
+                  borderColor="border-blue-dark"
+                />
+              </a>
+            </Link>
+          </section>
           <div
             className={`fixed top-0 left-0 h-screen w-screen backdrop-blur-lg ${
               hidden ? 'hidden' : ''
@@ -154,47 +195,6 @@ const Profile: NextPage = () => {
               </div>
             </div>
           </div>
-          <section className="mx-24 my-6 grid grid-cols-2 grid-rows-2 place-items-center gap-8">
-            <Link href="/profile/collections">
-              <a>
-                <ButtonComponent
-                  text="Saved Collections"
-                  color="bg-orange"
-                  borderColor="border-orange-dark"
-                />
-              </a>
-            </Link>
-
-            <Link href="/profile/recipes">
-              <a>
-                <ButtonComponent
-                  text="Saved Recipes"
-                  color="bg-purple"
-                  borderColor="border-purple-dark"
-                />
-              </a>
-            </Link>
-            
-            <Link href="/history">
-              <a>
-                <ButtonComponent
-                  text="Recipe History"
-                  color="bg-green"
-                  borderColor="border-green-dark"
-                />
-              </a>
-            </Link>
-            
-            <Link href="/about">
-              <a>
-                <ButtonComponent
-                  text="Help & Contact"
-                  color="bg-blue"
-                  borderColor="border-blue-dark"
-                />
-              </a>
-            </Link>
-          </section>
         </div>
       </main>
     </>
