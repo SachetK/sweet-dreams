@@ -6,13 +6,17 @@ import Image from 'next/image'
 import JiaXi from '../../public/profile/JiaXi.jpg'
 import Sachet from '../../public/profile/Sachet.jpg'
 import Anthony from '../../public/profile/Anthony.jpg'
+import Link from 'next/link'
+import ButtonComponent from '../components/ButtonComponent'
 
 const About: NextPage = () => {
   return (
     <>
   <main className="h-screen overflow-x-hidden bg-main">
     <NavigationBar />
+
     {/* about the creators part */}
+
 <div className="space-y-24">
     <div className="ml-52 mt-11">
       <HeadComponent
@@ -91,9 +95,17 @@ const About: NextPage = () => {
       <HeadingBanner 
       title="Help & Contact" 
       />
-      <div className="flex w-full flex-col justify-center mt-16 space-y-11">
-   
-   
+      
+      <div className="flex w-full flex-col justify-center mt-16 space-y-11 my-9">
+        <Link href="https://forms.gle/us876ECE2DekAEwMA">
+          <a>
+            <ButtonComponent 
+              text="Link to contact form"
+              color="bg-blue"
+              borderColor='border-blue-dark'
+            />
+            </a>
+        </Link>
     </div>
     </div>
 </div>
