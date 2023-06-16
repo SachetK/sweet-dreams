@@ -12,7 +12,7 @@ import ButtonComponent from "../components/ButtonComponent";
 
 const About: NextPage = () => {
   return (
-    <main className="bg-main h-screen overflow-x-hidden">
+    <main className="h-screen overflow-x-hidden bg-main">
       <NavigationBar />
 
       {/* about the creators part */}
@@ -102,13 +102,11 @@ const About: NextPage = () => {
 
           <div className="my-9 mt-16 flex w-full flex-col justify-center space-y-11">
             <Link href="https://forms.gle/us876ECE2DekAEwMA">
-              <a>
-                <ButtonComponent
-                  text="Link to contact form"
-                  color="bg-blue"
-                  borderColor="border-blue-dark"
-                />
-              </a>
+              <ButtonComponent
+                text="Link to contact form"
+                color="bg-blue"
+                borderColor="border-blue-dark"
+              />
             </Link>
           </div>
         </div>

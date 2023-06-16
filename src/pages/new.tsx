@@ -16,7 +16,7 @@ const NewRecipe: NextPage = () => {
   const router = useRouter();
 
   return (
-    <main className="bg-main h-full">
+    <main className="h-full bg-main">
       <HeadComponent
         title={"Sweet Dreams - New Recipe"}
         description={"New Recipe for sweet-dreams"}

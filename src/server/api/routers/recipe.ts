@@ -19,9 +19,6 @@ export const recipeRouter = createTRPCRouter({
         take: recipesPerPage,
         orderBy: {
           timestamp: type === "newest" ? "asc" : undefined,
-          ratings: {
-            _count: type === "rating" ? "asc" : undefined,
-          },
         },
         include: {
           ratings: true,

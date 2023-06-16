@@ -37,7 +37,7 @@ const Search: NextPage = () => {
   }, [data, search]);
 
   return (
-    <main className="bg-main scrollbar-hide flex h-screen flex-col items-center space-y-2 overflow-y-scroll">
+    <main className="flex h-screen flex-col items-center space-y-2 overflow-y-scroll bg-main scrollbar-hide">
       <HeadComponent title="Sweet Dreams - Search" description="Search Page" />
       <NavigationBar />
       <div className="mt-2 flex flex-row space-x-4">
@@ -52,7 +52,7 @@ const Search: NextPage = () => {
         </form>
         <button
           type="button"
-          className="bg-red clip-path-button-prev w-max"
+          className="w-max bg-red clip-path-button-prev"
           onClick={() => setCurrPage((curr) => curr - 1)}
           disabled={currPage === 1}
         >
@@ -62,7 +62,7 @@ const Search: NextPage = () => {
         </button>
         <button
           type="button"
-          className="bg-red clip-path-button-next ml-4 w-max"
+          className="ml-4 w-max bg-red clip-path-button-next"
           onClick={() => setCurrPage((curr) => curr + 1)}
           disabled={isPreviousData || currPage * size >= (data?.count ?? 0)}
         >

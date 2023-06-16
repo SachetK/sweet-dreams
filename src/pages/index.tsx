@@ -34,13 +34,11 @@ const Home: NextPage = () => {
             </div>
           ) : (
             <Link href="/feed">
-              <a>
-                <ButtonComponent
-                  text="Find your favorite recipes!"
-                  color="bg-pink"
-                  borderColor="border-pink-dark"
-                />
-              </a>
+              <ButtonComponent
+                text="Find your favorite recipes!"
+                color="bg-pink"
+                borderColor="border-pink-dark"
+              />
             </Link>
           )}
         </div>

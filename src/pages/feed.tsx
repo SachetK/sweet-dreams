@@ -19,7 +19,7 @@ const Feed: NextPage = () => {
         description="Main landing page with recipies"
       />
 
-      <main className="bg-main h-screen overflow-x-hidden">
+      <main className="h-screen overflow-x-hidden bg-main">
         <NavigationBar />
         <div className="relative bottom-12 left-32 top-12 h-screen w-full md:bottom-4 md:left-40 md:top-4">
           <RecipeCard title="New Recipes" query={"newest"} />
@@ -62,13 +62,13 @@ const RecipeCard: React.FC<{
 
   return (
     <>
-      <div className="scrollbar-hide mb-11 mt-2 w-max space-y-2 overflow-y-scroll">
+      <div className="mb-11 mt-2 w-max space-y-2 overflow-y-scroll scrollbar-hide">
         <div className="mb-2 flex flex-row items-center space-x-8">
           <HeadingBanner title={title} />
           <div>
             <button
               type="button"
-              className="bg-pink-dark clip-path-button-prev w-max"
+              className="w-max bg-pink-dark clip-path-button-prev"
               onClick={() => setCurrPage((curr) => curr - 1)}
               disabled={currPage === 1}
             >
@@ -78,7 +78,7 @@ const RecipeCard: React.FC<{
             </button>
             <button
               type="button"
-              className="bg-pink-dark clip-path-button-next ml-2 w-max"
+              className="ml-2 w-max bg-pink-dark clip-path-button-next"
               onClick={() => setCurrPage((curr) => curr + 1)}
               disabled={isPreviousData || currPage * size >= (data?.count ?? 0)}
             >
