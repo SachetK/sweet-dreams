@@ -10,15 +10,12 @@ import { api } from "~/utils/api";
 import { getServerAuthSession } from "~/server/auth";
 
 const Feed: NextPage = () => {
-  const { data: session } = useSession();
-
   return (
     <>
       <HeadComponent
         title="Sweet Dreams - Main Feed"
         description="Main landing page with recipies"
       />
-
       <main className="h-screen overflow-x-hidden bg-main">
         <NavigationBar />
         <div className="relative bottom-12 left-32 top-12 h-screen w-full md:bottom-4 md:left-40 md:top-4">
