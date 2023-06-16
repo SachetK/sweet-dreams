@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import ButtonComponent from "../components/ButtonComponent";
@@ -83,7 +83,7 @@ const NewRecipe: NextPage = () => {
                 instructions: instructions.split(","),
                 timeToMake: timeToCook,
               });
-              router.push("/feed");
+              void router.push("/feed");
             }}
             color={"bg-pink"}
             borderColor={"border-pink-dark"}

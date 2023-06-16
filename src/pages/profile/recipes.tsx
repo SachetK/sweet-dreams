@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import RecipeComponent from "../../components/RecipeComponent";
 import { api } from "~/utils/api";

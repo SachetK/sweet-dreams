@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import HeadComponent from "../components/HeadComponent";
 import HeadingBanner from "../components/HeadingBanner";
 import NavigationBar from "../components/NavigationBar";

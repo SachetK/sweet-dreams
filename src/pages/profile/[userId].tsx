@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext, NextPage } from "next";
+import type { GetServerSidePropsContext, NextPage } from "next";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import HeadComponent from "../../components/HeadComponent";
@@ -7,7 +7,6 @@ import ButtonComponent from "../../components/ButtonComponent";
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { api } from "~/utils/api";
-import { appRouter } from "~/server/api/root";
 import { getServerAuthSession } from "~/server/auth";
 import { generateSSGHelper } from "~/server/api/helpers/ssgHelpers";
 
@@ -22,12 +21,12 @@ const Profile: NextPage = () => {
 
   const updateAllergy = api.user.updateAllergies.useMutation({
     onSuccess: () => {
-      util.user.byId.invalidate({ id: userId });
+      void util.user.byId.invalidate({ id: userId });
     },
   });
   const updateBio = api.user.updateBio.useMutation({
     onSuccess: () => {
-      util.user.byId.invalidate({ id: userId });
+      void util.user.byId.invalidate({ id: userId });
     },
   });
 
@@ -36,7 +35,7 @@ const Profile: NextPage = () => {
       <main className="h-screen overflow-x-hidden bg-main">
         <HeadComponent
           title={"Sweet Dreams - Profile Page"}
-          description={`Profile page for ${user?.name}`}
+          description={`Profile page for ${user?.name ?? "user"}`}
         />
         <div className="relative left-10 top-12 h-screen w-full md:bottom-4 md:left-12 md:top-8">
           <div className="absolute">
@@ -73,7 +72,7 @@ const Profile: NextPage = () => {
                 text="Submit Changes"
                 onClick={() => {
                   if (!bio) return;
-                  else updateBio.mutateAsync({ bio: bio });
+                  else void updateBio.mutateAsync({ bio });
                 }}
                 color="bg-red"
                 borderColor="border-dark-red"

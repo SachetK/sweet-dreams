@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
+import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { Session } from "next-auth";
 import { useEffect, useMemo, useState } from "react";
 import HeadComponent from "../components/HeadComponent";

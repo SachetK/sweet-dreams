@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { useHistory } from "./HistoryProvider";
-import { RecipeWithRating } from "../utils/types";
+import type { RecipeWithRating } from "../utils/types";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";

@@ -28,7 +28,7 @@ const RecipePage: NextPage = () => {
     : `${
         recipe?.timeToMake / 60 < 0
           ? ""
-          : Math.floor(recipe?.timeToMake / 60) + "hours"
+          : `${Math.floor(recipe?.timeToMake / 60)} hours`
       } ${
         recipe?.timeToMake / 60 > 0 ? " and " : recipe?.timeToMake % 60
       } mins`;

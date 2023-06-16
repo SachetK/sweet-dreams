@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import { useHistory } from "../components/HistoryProvider";
 import RecipeComponent from "../components/RecipeComponent";
 
