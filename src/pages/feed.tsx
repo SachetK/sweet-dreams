@@ -1,6 +1,5 @@
 import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import type { Session } from "next-auth";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import HeadComponent from "../components/HeadComponent";
 import HeadingBanner from "../components/HeadingBanner";
