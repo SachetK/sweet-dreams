@@ -27,7 +27,6 @@ const Feed: NextPage = () => {
           <RecipeCard
             title="Your Recipes"
             query={"user"}
-            userId={session?.user?.id}
           />
         </div>
       </main>
@@ -40,8 +39,7 @@ export default Feed;
 const RecipeCard: React.FC<{
   title: string;
   query: "newest" | "rating" | "user";
-  userId?: string;
-}> = ({ title, query, userId }) => {
+}> = ({ title, query }) => {
   const [currPage, setCurrPage] = useState<number>(1);
   const [size, setSize] = useState<number>(1);
 
