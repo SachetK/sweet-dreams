@@ -4,27 +4,27 @@ import React, {
   SetStateAction,
   useContext,
   useState,
-} from 'react'
-import { RecipeWithRating } from '../utils/types'
+} from "react";
+import { RecipeWithRating } from "../utils/types";
 
 const HistoryContext = createContext<{
-  history: RecipeWithRating[]
-  setHistory: Dispatch<SetStateAction<RecipeWithRating[]>>
+  history: RecipeWithRating[];
+  setHistory: Dispatch<SetStateAction<RecipeWithRating[]>>;
 }>({
   history: [],
   setHistory: (prev) => {
-    return prev
+    return prev;
   },
-})
+});
 
 export const useHistory = () => {
-  return useContext(HistoryContext)
-}
+  return useContext(HistoryContext);
+};
 
 export const HistoryProvider: React.FC<{ children: JSX.Element }> = ({
   children,
 }) => {
-  const [history, setHistory] = useState<RecipeWithRating[]>([])
+  const [history, setHistory] = useState<RecipeWithRating[]>([]);
 
   return (
     <HistoryContext.Provider
@@ -32,5 +32,5 @@ export const HistoryProvider: React.FC<{ children: JSX.Element }> = ({
     >
       {children}
     </HistoryContext.Provider>
-  )
-}
+  );
+};

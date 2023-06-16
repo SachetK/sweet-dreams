@@ -1,11 +1,11 @@
-import { NextPage } from 'next'
-import { useHistory } from '../components/HistoryProvider'
-import RecipeComponent from '../components/RecipeComponent'
+import { NextPage } from "next";
+import { useHistory } from "../components/HistoryProvider";
+import RecipeComponent from "../components/RecipeComponent";
 
 const History: NextPage = () => {
-  const { history } = useHistory()
+  const { history } = useHistory();
   return (
-    <main className="h-screen bg-main">
+    <main className="bg-main h-screen">
       <h1 className="text-bold text-center text-6xl">History</h1>
       <div className="mx-[32%] my-4 w-max">
         {history?.map((recipe) => (
@@ -13,7 +13,7 @@ const History: NextPage = () => {
         ))}
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default History
+export default History;

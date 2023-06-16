@@ -1,13 +1,13 @@
-import type { NextPage } from 'next'
-import Image from 'next/image'
-import homeImage from '../../public/sweet-dreams-main.png'
-import HeadComponent from '../components/HeadComponent'
-import ButtonComponent from '../components/ButtonComponent'
-import { signIn, useSession } from 'next-auth/react'
-import Link from 'next/link'
+import type { NextPage } from "next";
+import Image from "next/image";
+import homeImage from "../../public/sweet-dreams-main.png";
+import HeadComponent from "../components/HeadComponent";
+import ButtonComponent from "../components/ButtonComponent";
+import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
 
 const Home: NextPage = () => {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   return (
     <>
@@ -25,7 +25,7 @@ const Home: NextPage = () => {
             />
           </div>
           {!session ? (
-            <div onClick={() => signIn('google', { callbackUrl: '/feed' })}>
+            <div onClick={() => signIn("google", { callbackUrl: "/feed" })}>
               <ButtonComponent
                 text="Sign in with Google"
                 color="bg-pink"
@@ -46,7 +46,7 @@ const Home: NextPage = () => {
         </div>
       </main>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

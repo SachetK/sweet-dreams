@@ -1,14 +1,16 @@
-import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
-import type { Session } from 'next-auth'
-import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
-import HeadComponent from '../components/HeadComponent'
-import HeadingBanner from '../components/HeadingBanner'
-import NavigationBar from '../components/NavigationBar'
-import RecipeComponent from '../components/RecipeComponent'
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
+import type { Session } from "next-auth";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import HeadComponent from "../components/HeadComponent";
+import HeadingBanner from "../components/HeadingBanner";
+import NavigationBar from "../components/NavigationBar";
+import RecipeComponent from "../components/RecipeComponent";
+import { api } from "~/utils/api";
+import { getServerAuthSession } from "~/server/auth";
 
 const Feed: NextPage = () => {
-  const { data: session } = useSession()
+  const { data: session } = useSession();
 
   return (
     <>
@@ -17,65 +19,56 @@ const Feed: NextPage = () => {
         description="Main landing page with recipies"
       />
 
-      <main className="h-screen overflow-x-hidden bg-main">
+      <main className="bg-main h-screen overflow-x-hidden">
         <NavigationBar />
-        <div className="relative left-32 top-12 bottom-12 h-screen w-full md:left-40 md:top-4 md:bottom-4">
-          <RecipeCard title="New Recipes" query={'recipe.getRecipesByNewest'} />
-          <RecipeCard
-            title="Popular Recipes"
-            query={'recipe.getRecipesByPopularity'}
-          />
+        <div className="relative bottom-12 left-32 top-12 h-screen w-full md:bottom-4 md:left-40 md:top-4">
+          <RecipeCard title="New Recipes" query={"newest"} />
+          <RecipeCard title="Popular Recipes" query={"rating"} />
           <RecipeCard
             title="Your Recipes"
-            query={'recipe.getRecipesByUser'}
+            query={"user"}
             userId={session?.user?.id}
           />
         </div>
       </main>
     </>
-  )
-}
+  );
+};
 
-export default Feed
+export default Feed;
 
 const RecipeCard: React.FC<{
-  title: string
-  query:
-    | 'recipe.getRecipesByNewest'
-    | 'recipe.getRecipesByPopularity'
-    | 'recipe.getRecipesByUser'
-  userId?: string
+  title: string;
+  query: "newest" | "rating" | "user";
+  userId?: string;
 }> = ({ title, query, userId }) => {
-  const [currPage, setCurrPage] = useState<number>(1)
-  const [size, setSize] = useState<number>(1)
+  const [currPage, setCurrPage] = useState<number>(1);
+  const [size, setSize] = useState<number>(1);
 
   useEffect(() => {
-    setSize(Math.floor(window.innerHeight / 430))
-  }, [])
+    setSize(Math.floor(window.innerHeight / 430));
+  }, []);
 
-  const { data, isLoading, isPreviousData } = trpc.useQuery(
-    [
-      query,
-      {
-        page: currPage,
-        recipesPerPage: size,
-        user: userId,
-      },
-    ],
+  const { data, isLoading, isPreviousData } = api.recipe.ordered.useQuery(
+    {
+      page: currPage,
+      recipesPerPage: size,
+      type: query,
+    },
     {
       keepPreviousData: true,
-    },
-  )
+    }
+  );
 
   return (
     <>
-      <div className="mt-2 mb-11 w-max space-y-2 overflow-y-scroll scrollbar-hide">
+      <div className="scrollbar-hide mb-11 mt-2 w-max space-y-2 overflow-y-scroll">
         <div className="mb-2 flex flex-row items-center space-x-8">
           <HeadingBanner title={title} />
           <div>
             <button
               type="button"
-              className="w-max bg-pink-dark clip-path-button-prev"
+              className="bg-pink-dark clip-path-button-prev w-max"
               onClick={() => setCurrPage((curr) => curr - 1)}
               disabled={currPage === 1}
             >
@@ -85,7 +78,7 @@ const RecipeCard: React.FC<{
             </button>
             <button
               type="button"
-              className="ml-2 w-max bg-pink-dark clip-path-button-next"
+              className="bg-pink-dark clip-path-button-next ml-2 w-max"
               onClick={() => setCurrPage((curr) => curr + 1)}
               disabled={isPreviousData || currPage * size >= (data?.count ?? 0)}
             >
@@ -99,30 +92,30 @@ const RecipeCard: React.FC<{
           <div>Loading...</div>
         ) : (
           data?.recipes.map((recipe) => {
-            return <RecipeComponent key={recipe.id} recipe={recipe} />
+            return <RecipeComponent key={recipe.id} recipe={recipe} />;
           })
         )}
       </div>
     </>
-  )
-}
+  );
+};
 
 export const getServerSideProps: GetServerSideProps<{
-  session: Session | null
+  session: Session | null;
 }> = async (context: GetServerSidePropsContext) => {
-  const session = await getServerAuthSession(context)
+  const session = await getServerAuthSession(context);
 
   if (!session) {
     return {
       redirect: {
-        destination: '/',
+        destination: "/",
         permanent: false,
       },
-    }
+    };
   }
   return {
     props: {
       session: session,
     },
-  }
-}
+  };
+};

@@ -1,18 +1,18 @@
-import { NextPage } from 'next'
-import HeadComponent from '../components/HeadComponent'
-import HeadingBanner from '../components/HeadingBanner'
-import NavigationBar from '../components/NavigationBar'
-import Image from 'next/image'
-import JiaXi from '../../public/profile/JiaXi.jpg'
-import Sachet from '../../public/profile/Sachet.jpg'
-import Anthony from '../../public/profile/Anthony.jpg'
-import Sakash from '../../public/profile/Sakash.jpg'
-import Link from 'next/link'
-import ButtonComponent from '../components/ButtonComponent'
+import { NextPage } from "next";
+import HeadComponent from "../components/HeadComponent";
+import HeadingBanner from "../components/HeadingBanner";
+import NavigationBar from "../components/NavigationBar";
+import Image from "next/image";
+import JiaXi from "../../public/profile/JiaXi.jpg";
+import Sachet from "../../public/profile/Sachet.jpg";
+import Anthony from "../../public/profile/Anthony.jpg";
+import Sakash from "../../public/profile/Sakash.jpg";
+import Link from "next/link";
+import ButtonComponent from "../components/ButtonComponent";
 
 const About: NextPage = () => {
   return (
-    <main className="h-screen overflow-x-hidden bg-main">
+    <main className="bg-main h-screen overflow-x-hidden">
       <NavigationBar />
 
       {/* about the creators part */}
@@ -114,7 +114,7 @@ const About: NextPage = () => {
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default About
+export default About;

@@ -1,25 +1,25 @@
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-import ButtonComponent from '../components/ButtonComponent'
-import HeadComponent from '../components/HeadComponent'
-import NavigationBar from '../components/NavigationBar'
-import { api } from '~/utils/api'
+import { NextPage } from "next";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import ButtonComponent from "../components/ButtonComponent";
+import HeadComponent from "../components/HeadComponent";
+import NavigationBar from "../components/NavigationBar";
+import { api } from "~/utils/api";
 
 const NewRecipe: NextPage = () => {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [ingredients, setIngredients] = useState('')
-  const [instructions, setInstructions] = useState('')
-  const [timeToCook, setTimeToCook] = useState(0)
-  const addRecipe = api.recipe.create.useMutation()
-  const router = useRouter()
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [timeToCook, setTimeToCook] = useState(0);
+  const addRecipe = api.recipe.create.useMutation();
+  const router = useRouter();
 
   return (
-    <main className="h-full bg-main">
+    <main className="bg-main h-full">
       <HeadComponent
-        title={'Sweet Dreams - New Recipe'}
-        description={'New Recipe for sweet-dreams'}
+        title={"Sweet Dreams - New Recipe"}
+        description={"New Recipe for sweet-dreams"}
       />
       <NavigationBar />
       <div className="flex flex-col items-center justify-center space-y-4">
@@ -79,19 +79,19 @@ const NewRecipe: NextPage = () => {
               addRecipe.mutate({
                 title: title,
                 description: description,
-                ingredients: ingredients.split(','),
-                instructions: instructions.split(','),
+                ingredients: ingredients.split(","),
+                instructions: instructions.split(","),
                 timeToMake: timeToCook,
-              })
-              router.push('/feed')
+              });
+              router.push("/feed");
             }}
-            color={'bg-pink'}
-            borderColor={'border-pink-dark'}
+            color={"bg-pink"}
+            borderColor={"border-pink-dark"}
           />
         </div>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default NewRecipe
+export default NewRecipe;

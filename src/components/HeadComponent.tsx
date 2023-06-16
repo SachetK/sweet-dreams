@@ -1,9 +1,9 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 type HeadComponentProps = {
-  title: string
-  description: string
-}
+  title: string;
+  description: string;
+};
 
 const HeadComponent: React.FC<HeadComponentProps> = ({
   title,
@@ -15,7 +15,7 @@ const HeadComponent: React.FC<HeadComponentProps> = ({
       <meta name="description" content={description} />
       <link rel="icon" href="/favicon.ico" />
     </Head>
-  )
-}
+  );
+};
 
-export default HeadComponent
+export default HeadComponent;

@@ -2,6 +2,53 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
 
 export const recipeRouter = createTRPCRouter({
+  ordered: publicProcedure
+    .input(
+      z.object({
+        page: z.number(),
+        recipesPerPage: z.number(),
+        type: z.enum(["newest", "rating", "user"]),
+      })
+    )
+    .query(async ({ input: { page, recipesPerPage, type }, ctx }) => {
+      const recipes = await ctx.prisma.recipe.findMany({
+        where: {
+          authorId: type === "user" ? ctx.session?.user.id : undefined,
+        },
+        skip: (page - 1) * recipesPerPage,
+        take: recipesPerPage,
+        orderBy: {
+          timestamp: type === "newest" ? "asc" : undefined,
+          ratings: {
+            _count: type === "rating" ? "asc" : undefined,
+          },
+        },
+        include: {
+          ratings: true,
+        },
+      });
+
+      recipes.sort((a, b) => {
+        if (type === "newest") {
+          return a.timestamp.getTime() - b.timestamp.getTime();
+        } else if (type === "rating") {
+          return (
+            a.ratings.reduce((a, b) => a + b.rating, 0) / a.ratings.length -
+            b.ratings.reduce((a, b) => a + b.rating, 0) / b.ratings.length
+          );
+        } else {
+          return 0;
+        }
+      });
+
+      const count = await ctx.prisma.recipe.count();
+
+      return {
+        recipes,
+        count,
+      };
+    }),
+
   byNewest: publicProcedure
     .input(
       z.object({

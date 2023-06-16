@@ -1,39 +1,39 @@
-import { useEffect, useMemo, useState } from 'react'
-import Image from 'next/image'
-import { useHistory } from './HistoryProvider'
-import { RecipeWithRating } from '../utils/types'
-import Link from 'next/link'
-import { trpc } from '../utils/trpc'
-import { useSession } from 'next-auth/react'
+import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import { useHistory } from "./HistoryProvider";
+import { RecipeWithRating } from "../utils/types";
+import Link from "next/link";
+import { trpc } from "../utils/trpc";
+import { useSession } from "next-auth/react";
 
 const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
   recipe,
 }) => {
-  const { title, timeToMake, image, ratings } = recipe
-  const saveRecipe = trpc.useMutation('user.saveRecipe')
+  const { title, timeToMake, image, ratings } = recipe;
+  const saveRecipe = trpc.useMutation("user.saveRecipe");
 
-  const { data: session } = useSession()
+  const { data: session } = useSession();
   const { data: user } = trpc.useQuery([
-    'user.getUser',
+    "user.getUser",
     { userId: session?.user?.id as string },
-  ])
+  ]);
 
-  const [img, setImg] = useState<string>('')
+  const [img, setImg] = useState<string>("");
   const averageRating = useMemo(() => {
-    return ratings.reduce((a, b) => a + b.rating, 0) / ratings.length
-  }, [ratings])
+    return ratings.reduce((a, b) => a + b.rating, 0) / ratings.length;
+  }, [ratings]);
 
   useEffect(() => {
-    setImg(image?.toString('base64') ?? '/sweet-dreams-main.png')
-  }, [image])
+    setImg(image?.toString("base64") ?? "/sweet-dreams-main.png");
+  }, [image]);
 
-  const { setHistory } = useHistory()
+  const { setHistory } = useHistory();
 
   return (
     <Link href={`/recipe/${recipe.id}`}>
       <a>
         <div
-          className="w-auto rounded-3xl bg-yellow"
+          className="bg-yellow w-auto rounded-3xl"
           onClick={() => setHistory((prev) => [...prev, recipe])}
         >
           <div className="flex h-28 w-full flex-row items-center">
@@ -55,7 +55,7 @@ const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
             </div>
             <button
               type="button"
-              className="mx-4 bg-red px-4 clip-path-heading"
+              className="bg-red clip-path-heading mx-4 px-4"
               onClick={() =>
                 saveRecipe.mutate({
                   savedRecipes: [...(user?.savedRecipes ?? []), recipe.id],
@@ -70,7 +70,7 @@ const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
         </div>
       </a>
     </Link>
-  )
-}
+  );
+};
 
-export default RecipeComponent
+export default RecipeComponent;
