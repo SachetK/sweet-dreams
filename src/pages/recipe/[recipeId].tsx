@@ -37,7 +37,7 @@ const RecipePage: NextPage = () => {
     <section className="h-screen w-auto overflow-y-hidden bg-main">
       <HeadComponent
         title={"Sweet Dreams - Recipe Page"}
-        description={`Recipe page for ${recipe?.title}`}
+        description={`Recipe page for ${recipe?.title ?? "recipe"}`}
       />
 
       <NavigationBar />
