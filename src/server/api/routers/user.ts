@@ -16,6 +16,11 @@ export const userRouter = createTRPCRouter({
       });
     }),
 
+    all: publicProcedure
+    .query(async ({ ctx }) => {
+      return await ctx.prisma.user.findMany();
+    }),
+
   updateBio: protectedProcedure
     .input(
       z.object({

@@ -152,9 +152,17 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
   };
 };
 
-export const getStaticPaths = () => {
+export const getStaticPaths = async () => {
+  const ssg = generateSSGHelper();
+
+  const recipes = await ssg.recipe.all.fetch()
+
   return {
-    paths: [],
+    paths: recipes.map((recipe) => ({
+      params: {
+        recipeId: recipe.id,
+      },
+    })),
     fallback: "blocking",
   };
 };

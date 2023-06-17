@@ -2,6 +2,10 @@ import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
 
 export const recipeRouter = createTRPCRouter({
+  all: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.recipe.findMany();
+  }),
+
   ordered: publicProcedure
     .input(
       z.object({

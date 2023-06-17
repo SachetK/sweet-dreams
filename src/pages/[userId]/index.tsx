@@ -1,5 +1,4 @@
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Image from "next/image";
 import HeadComponent from "../../components/HeadComponent";
 import NavigationBar from "../../components/NavigationBar";
@@ -9,10 +8,9 @@ import Link from "next/link";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import { z } from "zod";
+import { generateSSGHelper } from "~/server/api/helpers/ssgHelpers";
 
-const Profile: NextPage = () => {
-  const util = api.useContext();
-
+const Profile: NextPage<{ userId: string }> = ({ userId }) => {
   const {
     data: session,
     status,
@@ -21,19 +19,19 @@ const Profile: NextPage = () => {
     required: true,
   });
 
-  const userId = useRouter().query.userId as string;
+  const { data: user } = api.user.byId.useQuery(
+    { id: userId })
+  
   const [hidden, setHidden] = useState<boolean>(true);
-  const [bio, setBio] = useState<string>(session?.user?.bio ?? "");
+  const [bio, setBio] = useState<string>(user?.bio ?? "");
 
   const updateBio = api.user.updateBio.useMutation({
-    onSuccess: () => {
-      void util.user.byId.invalidate({ id: userId });
-    },
+    onSuccess: () => update(),
   });
 
-  if (status !== "authenticated") return null;
+  if (status === "loading") return <div>Loading...</div>;
 
-  const { user } = session;
+  const isOwner = session.user.id === userId;
 
   return (
     <main className="h-screen overflow-x-hidden bg-main">
@@ -60,7 +58,7 @@ const Profile: NextPage = () => {
             <div className="flex h-32 w-full items-center justify-center rounded-3xl bg-yellow align-middle">
               <p
                 className="h-full w-full rounded-3xl p-4 text-center text-lg font-bold"
-                contentEditable={true}
+                contentEditable={isOwner}
                 suppressContentEditableWarning={true}
                 onInput={(e) => {
                   setBio(e.currentTarget.textContent ?? "");
@@ -72,7 +70,7 @@ const Profile: NextPage = () => {
                 {user?.bio ?? "No bio yet!"}
               </p>
             </div>
-            <ButtonComponent
+            {isOwner && <ButtonComponent
               text="Submit Changes"
               onClick={() => {
                 if (!bio) return;
@@ -80,7 +78,7 @@ const Profile: NextPage = () => {
               }}
               color="bg-red"
               borderColor="border-dark-red"
-            />
+            />}
           </div>
           <div className="flex w-1/4 flex-col items-center justify-center space-y-4">
             <div className="flex h-32 w-full flex-col items-center overflow-auto rounded-3xl bg-yellow scrollbar-hide">
@@ -93,12 +91,12 @@ const Profile: NextPage = () => {
                     ))}
               </ol>
             </div>
-            <ButtonComponent
+            {isOwner && <ButtonComponent
               text="Add allergies"
               onClick={() => setHidden(!hidden)}
               color="bg-red"
               borderColor="border-dark-red"
-            />
+            />}
           </div>
         </section>
         <section className="mx-[25%] mt-[10%] flex w-max flex-row items-center justify-center gap-6">
@@ -110,13 +108,13 @@ const Profile: NextPage = () => {
             />
           </Link>
 
-          <Link href="/history">
+          {isOwner && <Link href="/history">
             <ButtonComponent
               text="Recipe History"
               color="bg-green"
               borderColor="border-green-dark"
             />
-          </Link>
+          </Link>}
 
           <Link href="/about">
             <ButtonComponent
@@ -204,5 +202,57 @@ const NewAllergyModal: React.FC<{
     </section>
   );
 };
+
+export const getStaticPaths = async () => {
+  const ssg = generateSSGHelper();
+
+  const users = await ssg.user.all.fetch();
+
+  return {
+    paths: users.map((user) => ({
+      params: {
+        userId: user.id,
+      },
+    })),
+    fallback: 'blocking',
+  };
+}
+
+export const getStaticProps = async (
+  context: GetStaticPropsContext
+) => {
+  const ssg = generateSSGHelper();
+  
+  const parsedSlug = z.string().cuid().safeParse(context.params?.userId) 
+  
+  if (!parsedSlug.success) {
+    return {
+      notFound: true,
+      redirect: {
+        destination: "/feed",
+        permanent: false,
+      },
+    };
+  }
+
+  try {
+    await ssg.user.byId.fetch({ id: parsedSlug.data });
+    return {
+      props: {
+        trpcState: ssg.dehydrate(),
+        userId: parsedSlug.data,
+      },
+    };
+  }
+  catch (e) {
+    return {
+      notFound: true,
+      redirect: {
+        destination: "/feed",
+        permanent: false,
+      },
+    };
+  }
+}
 
 export default Profile;
