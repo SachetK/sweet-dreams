@@ -1,7 +1,3 @@
-import type { Prisma } from "@prisma/client";
+import type { RouterOutputs } from "./api";
 
-export type RecipeWithRating = Prisma.RecipeGetPayload<{
-  include: {
-    ratings: true;
-  };
-}>;
+export type RecipeWithRating = RouterOutputs["recipe"]["ordered"]["recipes"][0];

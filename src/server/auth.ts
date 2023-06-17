@@ -1,4 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import type { Recipe } from "@prisma/client";
 import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
@@ -19,15 +20,17 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+      bio: string | null;
+      allergies: string[] | null;
+      recipes: Recipe[];
     } & DefaultSession["user"];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    bio: string | null;
+    allergies: string[] | null;
+    recipes: Recipe[];
+  }
 }
 
 /**
@@ -42,8 +45,13 @@ export const authOptions: NextAuthOptions = {
       user: {
         ...session.user,
         id: user.id,
+        bio: user.bio,
+        allergies: user.allergies,
       },
     }),
+  },
+  pages: {
+    signIn: "/",
   },
   adapter: PrismaAdapter(prisma),
   providers: [

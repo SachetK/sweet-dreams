@@ -34,18 +34,16 @@ export const userRouter = createTRPCRouter({
     }),
 
   updateAllergies: protectedProcedure
-    .input(
-      z.object({
-        allergies: z.string().max(1000).array(),
-      })
-    )
-    .mutation(async ({ ctx, input: { allergies } }) => {
+    .input(z.string().max(1000))
+    .mutation(async ({ ctx, input }) => {
       return await ctx.prisma.user.update({
         where: {
           id: ctx.session.user.id,
         },
         data: {
-          allergies,
+          allergies: {
+            push: input,
+          },
         },
       });
     }),

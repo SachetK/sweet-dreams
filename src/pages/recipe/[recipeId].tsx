@@ -1,15 +1,14 @@
-import type { GetServerSidePropsContext, NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import { useRouter } from "next/router";
 import HeadComponent from "../../components/HeadComponent";
-
 import Image from "next/image";
 import mainImage from "../../../public/sweet-dreams-main.png";
 import NavigationBar from "../../components/NavigationBar";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { generateSSGHelper } from "~/server/api/helpers/ssgHelpers";
-import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/utils/api";
+import { z } from "zod";
 
 const RecipePage: NextPage = () => {
   const recipeId = useRouter().query.recipeId as string;
@@ -51,9 +50,9 @@ const RecipePage: NextPage = () => {
               <figure className="relative h-60 w-60 2xl:h-72 2xl:w-72">
                 <Image
                   className="rounded-full object-cover object-center"
-fill                  src={mainImage}
+                  fill
+                  src={mainImage}
                   alt={recipe?.title ?? "Recipe image"}
-              
                 />
               </figure>
               <input
@@ -121,16 +120,13 @@ fill                  src={mainImage}
   );
 };
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const session = await getServerAuthSession(context);
-  const recipeId = context.params?.recipeId as string;
+export const getStaticProps = async (context: GetStaticPropsContext) => {
+  const recipeId = z.string().cuid().safeParse(context.params?.recipeId);
 
-  if (!session) {
+  if (!recipeId.success) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/404",
         permanent: false,
       },
     };
@@ -139,7 +135,7 @@ export const getServerSideProps = async (
   const ssg = generateSSGHelper();
 
   try {
-    await ssg.recipe.byId.fetch({ id: recipeId });
+    await ssg.recipe.byId.fetch({ id: recipeId.data });
   } catch (error) {
     return {
       redirect: {
@@ -152,8 +148,15 @@ export const getServerSideProps = async (
   return {
     props: {
       trpcState: ssg.dehydrate(),
-      session,
     },
   };
 };
+
+export const getStaticPaths = () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
 export default RecipePage;

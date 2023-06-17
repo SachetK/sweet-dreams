@@ -1,15 +1,16 @@
-import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
-import type { Session } from "next-auth";
+import type { GetStaticProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 import HeadComponent from "../components/HeadComponent";
 import HeadingBanner from "../components/HeadingBanner";
 import NavigationBar from "../components/NavigationBar";
 import RecipeComponent from "../components/RecipeComponent";
 import { api } from "~/utils/api";
-import { getServerAuthSession } from "~/server/auth";
 import { generateSSGHelper } from "~/server/api/helpers/ssgHelpers";
+import { useSession } from "next-auth/react";
 
 const Feed: NextPage = () => {
+  useSession({ required: true });
+
   return (
     <>
       <HeadComponent
@@ -21,10 +22,7 @@ const Feed: NextPage = () => {
         <div className="relative bottom-12 left-32 top-12 h-screen w-full md:bottom-4 md:left-40 md:top-4">
           <RecipeCard title="New Recipes" query={"newest"} />
           <RecipeCard title="Popular Recipes" query={"rating"} />
-          <RecipeCard
-            title="Your Recipes"
-            query={"user"}
-          />
+          <RecipeCard title="Your Recipes" query={"user"} />
         </div>
       </main>
     </>
@@ -95,35 +93,22 @@ const RecipeCard: React.FC<{
   );
 };
 
-export const getServerSideProps: GetServerSideProps<{
-  session: Session | null;
-}> = async (context: GetServerSidePropsContext) => {
-  const session = await getServerAuthSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
+export const getStaticProps: GetStaticProps = async () => {
   const ssg = generateSSGHelper();
 
-  await ssg.recipe.ordered.fetch({
+  await ssg.recipe.ordered.prefetch({
     page: 1,
     recipesPerPage: 1,
     type: "newest",
   });
 
-  await ssg.recipe.ordered.fetch({
+  await ssg.recipe.ordered.prefetch({
     page: 1,
     recipesPerPage: 1,
     type: "rating",
   });
 
-  await ssg.recipe.ordered.fetch({
+  await ssg.recipe.ordered.prefetch({
     page: 1,
     recipesPerPage: 1,
     type: "user",
@@ -132,7 +117,6 @@ export const getServerSideProps: GetServerSideProps<{
   return {
     props: {
       trpcState: ssg.dehydrate(),
-      session: session,
     },
   };
 };

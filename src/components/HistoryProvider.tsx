@@ -5,7 +5,7 @@ import React, {
   useContext,
   useState,
 } from "react";
-import type { RecipeWithRating } from "../utils/types";
+import type { RecipeWithRating } from "~/utils/types";
 
 const HistoryContext = createContext<{
   history: RecipeWithRating[];

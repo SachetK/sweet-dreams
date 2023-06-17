@@ -1,17 +1,18 @@
-import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
-import type { Session } from "next-auth";
+import type { NextPage } from "next";
 import { useEffect, useMemo, useState } from "react";
 import HeadComponent from "../components/HeadComponent";
 import NavigationBar from "../components/NavigationBar";
 import RecipeComponent from "../components/RecipeComponent";
 import { api } from "~/utils/api";
-import { getServerAuthSession } from "~/server/auth";
+import { useSession } from "next-auth/react";
 
 const Search: NextPage = () => {
-  const [currPage, setCurrPage] = useState<number>(1);
-  const [size, setSize] = useState<number>(1);
-  const [search, setSearch] = useState<string>("");
-  const [height, setHeight] = useState<number>(0);
+  useSession({ required: true });
+
+  const [currPage, setCurrPage] = useState(1);
+  const [size, setSize] = useState(1);
+  const [search, setSearch] = useState("");
+  const [height, setHeight] = useState(0);
 
   useEffect(() => {
     setHeight(window.innerHeight);
@@ -84,23 +85,4 @@ const Search: NextPage = () => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<{
-  session: Session | null;
-}> = async (context: GetServerSidePropsContext) => {
-  const session = await getServerAuthSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
 export default Search;

@@ -25,7 +25,9 @@ const Home: NextPage = () => {
             />
           </div>
           {!session ? (
-            <div onClick={() => void signIn("google", { callbackUrl: "/feed" })}>
+            <div
+              onClick={() => void signIn("google", { callbackUrl: "/feed" })}
+            >
               <ButtonComponent
                 text="Sign in with Google"
                 color="bg-pink"
