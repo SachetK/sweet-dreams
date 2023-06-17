@@ -30,7 +30,6 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
           <div className="relative mr-2 mt-2 w-14 self-center">
             <Image
               src={continueIcon}
-              layout="intrinsic"
               height={55}
               width={56}
               alt="Continue button"

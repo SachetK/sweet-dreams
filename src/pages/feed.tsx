@@ -7,6 +7,7 @@ import NavigationBar from "../components/NavigationBar";
 import RecipeComponent from "../components/RecipeComponent";
 import { api } from "~/utils/api";
 import { getServerAuthSession } from "~/server/auth";
+import { generateSSGHelper } from "~/server/api/helpers/ssgHelpers";
 
 const Feed: NextPage = () => {
   return (
@@ -107,8 +108,30 @@ export const getServerSideProps: GetServerSideProps<{
       },
     };
   }
+
+  const ssg = generateSSGHelper();
+
+  await ssg.recipe.ordered.fetch({
+    page: 1,
+    recipesPerPage: 1,
+    type: "newest",
+  });
+
+  await ssg.recipe.ordered.fetch({
+    page: 1,
+    recipesPerPage: 1,
+    type: "rating",
+  });
+
+  await ssg.recipe.ordered.fetch({
+    page: 1,
+    recipesPerPage: 1,
+    type: "user",
+  });
+
   return {
     props: {
+      trpcState: ssg.dehydrate(),
       session: session,
     },
   };

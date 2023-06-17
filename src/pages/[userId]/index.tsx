@@ -101,7 +101,7 @@ const Profile: NextPage = () => {
             </div>
           </section>
           <section className="mx-[25%] mt-[10%] flex w-max flex-row items-center justify-center gap-6">
-            <Link href="/profile/recipes">
+            <Link href={`/${userId}/recipes`}>
                 <ButtonComponent
                   text="Saved Recipes"
                   color="bg-purple"

@@ -42,7 +42,6 @@ const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
               src={img}
               alt="recipe image"
               fill
-              unoptimized={true}
             />
           </div>
           <div className="flex w-48 flex-col">

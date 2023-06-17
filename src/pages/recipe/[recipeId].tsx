@@ -50,12 +50,10 @@ const RecipePage: NextPage = () => {
             <div className="row-span-3 flex flex-col items-center">
               <figure className="relative h-60 w-60 2xl:h-72 2xl:w-72">
                 <Image
-                  className="rounded-full"
-                  layout="fill"
-                  src={mainImage}
+                  className="rounded-full object-cover object-center"
+fill                  src={mainImage}
                   alt={recipe?.title ?? "Recipe image"}
-                  objectFit="cover"
-                  objectPosition={"center"}
+              
                 />
               </figure>
               <input

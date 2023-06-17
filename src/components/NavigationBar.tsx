@@ -14,18 +14,14 @@ const NavigationBar: React.FC = () => {
       <Link href="/feed" className="relative w-full">
         <Image
           src={homeIcon}
-          layout="intrinsic"
-          height={homeIcon.height}
-          width={homeIcon.width}
+
           alt="Navigation bar"
         />
       </Link>
       <Link href="/search" className="relative w-full">
         <Image
           src={searchIcon}
-          layout="intrinsic"
-          height={searchIcon.height}
-          width={searchIcon.width}
+
           alt="Navigation bar"
         />
       </Link>
@@ -33,20 +29,16 @@ const NavigationBar: React.FC = () => {
         <div className="relative w-full">
           <Image
             src={insertIcon}
-            layout="intrinsic"
-            height={insertIcon.height}
-            width={insertIcon.width}
+           
             alt="Navigation bar"
           />
         </div>
       </Link>
-      <Link href={`/profile/${session?.user?.id ?? ''}`}>
+      <Link href={`/${session?.user?.id ?? ''}`}>
         <div className="relative w-full">
           <Image
             src={profileIcon}
-            layout="intrinsic"
-            height={profileIcon.height}
-            width={profileIcon.width}
+           
             alt="Navigation bar"
           />
         </div>
