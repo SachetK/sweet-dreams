@@ -19,9 +19,8 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
     required: true,
   });
 
-  const { data: user } = api.user.byId.useQuery(
-    { id: userId })
-  
+  const { data: user } = api.user.byId.useQuery({ id: userId });
+
   const [hidden, setHidden] = useState<boolean>(true);
   const [bio, setBio] = useState<string>(user?.bio ?? "");
 
@@ -70,15 +69,17 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
                 {user?.bio ?? "No bio yet!"}
               </p>
             </div>
-            {isOwner && <ButtonComponent
-              text="Submit Changes"
-              onClick={() => {
-                if (!bio) return;
-                else void updateBio.mutateAsync({ bio });
-              }}
-              color="bg-red"
-              borderColor="border-dark-red"
-            />}
+            {isOwner && (
+              <ButtonComponent
+                text="Submit Changes"
+                onClick={() => {
+                  if (!bio) return;
+                  else void updateBio.mutateAsync({ bio });
+                }}
+                color="bg-red"
+                borderColor="border-dark-red"
+              />
+            )}
           </div>
           <div className="flex w-1/4 flex-col items-center justify-center space-y-4">
             <div className="flex h-32 w-full flex-col items-center overflow-auto rounded-3xl bg-yellow scrollbar-hide">
@@ -91,12 +92,14 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
                     ))}
               </ol>
             </div>
-            {isOwner && <ButtonComponent
-              text="Add allergies"
-              onClick={() => setHidden(!hidden)}
-              color="bg-red"
-              borderColor="border-dark-red"
-            />}
+            {isOwner && (
+              <ButtonComponent
+                text="Add allergies"
+                onClick={() => setHidden(!hidden)}
+                color="bg-red"
+                borderColor="border-dark-red"
+              />
+            )}
           </div>
         </section>
         <section className="mx-[25%] mt-[10%] flex w-max flex-row items-center justify-center gap-6">
@@ -108,13 +111,15 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
             />
           </Link>
 
-          {isOwner && <Link href="/history">
-            <ButtonComponent
-              text="Recipe History"
-              color="bg-green"
-              borderColor="border-green-dark"
-            />
-          </Link>}
+          {isOwner && (
+            <Link href="/history">
+              <ButtonComponent
+                text="Recipe History"
+                color="bg-green"
+                borderColor="border-green-dark"
+              />
+            </Link>
+          )}
 
           <Link href="/about">
             <ButtonComponent
@@ -214,17 +219,15 @@ export const getStaticPaths = async () => {
         userId: user.id,
       },
     })),
-    fallback: 'blocking',
+    fallback: "blocking",
   };
-}
+};
 
-export const getStaticProps = async (
-  context: GetStaticPropsContext
-) => {
+export const getStaticProps = async (context: GetStaticPropsContext) => {
   const ssg = generateSSGHelper();
-  
-  const parsedSlug = z.string().cuid().safeParse(context.params?.userId) 
-  
+
+  const parsedSlug = z.string().cuid().safeParse(context.params?.userId);
+
   if (!parsedSlug.success) {
     return {
       notFound: true,
@@ -243,8 +246,7 @@ export const getStaticProps = async (
         userId: parsedSlug.data,
       },
     };
-  }
-  catch (e) {
+  } catch (e) {
     return {
       notFound: true,
       redirect: {
@@ -253,6 +255,6 @@ export const getStaticProps = async (
       },
     };
   }
-}
+};
 
 export default Profile;

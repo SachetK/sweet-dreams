@@ -17,11 +17,12 @@ const RecipePage: NextPage = () => {
     { enabled: !!recipeId }
   );
   const rateRecipe = api.recipe.rate.useMutation();
-
+  
   const { data: session } = useSession();
-  const [rating, setRating] = useState<number>(
+  const [rating, setRating] = useState(
     recipe?.ratings.find((r) => r.userId === session?.user?.id)?.rating ?? 0
   );
+
   const timeToCook = !recipe?.timeToMake
     ? 0
     : `${
@@ -155,7 +156,7 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 export const getStaticPaths = async () => {
   const ssg = generateSSGHelper();
 
-  const recipes = await ssg.recipe.all.fetch()
+  const recipes = await ssg.recipe.all.fetch();
 
   return {
     paths: recipes.map((recipe) => ({

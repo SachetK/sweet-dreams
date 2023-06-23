@@ -27,13 +27,12 @@ const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
     setImg(image?.toString("base64") ?? "/sweet-dreams-main.png");
   }, [image]);
 
-  const { setHistory } = useHistory();
+  const { pushRecipe } = useHistory();
 
   return (
-    <Link href={`/recipe/${recipe.id}`}>
+    <Link href={`/recipe/${recipe.id}`} onClick={() => pushRecipe(recipe)}>
       <div
         className="w-auto rounded-3xl bg-yellow"
-        onClick={() => setHistory((prev) => [...prev, recipe])}
       >
         <div className="flex h-28 w-full flex-row items-center">
           <div className="relative ml-4 mr-8 h-24 w-24 ">

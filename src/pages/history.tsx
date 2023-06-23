@@ -8,7 +8,7 @@ const History: NextPage = () => {
     <main className="h-screen bg-main">
       <h1 className="text-bold text-center text-6xl">History</h1>
       <div className="mx-[32%] my-4 w-max">
-        {history?.map((recipe) => (
+        {history.reverse().map((recipe) => (
           <RecipeComponent key={recipe.id} recipe={recipe} />
         ))}
       </div>
