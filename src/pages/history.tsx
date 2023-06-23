@@ -17,8 +17,8 @@ const History: NextPage = () => {
   return (
     <main className="h-screen bg-main">
       <HeadComponent
-        title={`${session.user.name ?? "Sweet Dreams"} - Saved Recipes`}
-        description={`Saved recipes page for ${session.user.name ?? "user"}`}
+        title="History"
+        description={`History page for ${session.user.name ?? "user"}`}
       />
       <h1 className="text-bold text-center text-6xl">History</h1>
       <div className="mx-[32%] my-4 w-max">
