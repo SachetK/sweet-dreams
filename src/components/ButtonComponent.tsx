@@ -17,7 +17,6 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
   type,
 }) => {
   return (
-    <>
       <button
         className={`w-fit flex-none rounded-full border-b-8 shadow-xl ${borderColor} ${color} active:border-b-4 active:shadow-md`}
         type={type === "submit" ? "submit" : "button"}
@@ -37,7 +36,6 @@ const ButtonComponent: React.FC<ButtonComponentProps> = ({
           </div>
         </div>
       </button>
-    </>
   );
 };
 

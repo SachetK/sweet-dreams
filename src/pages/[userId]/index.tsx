@@ -33,7 +33,7 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
   const isOwner = session.user.id === userId;
 
   return (
-    <main className="h-screen overflow-x-hidden bg-main">
+    <main className="min-h-screen h-full overflow-x-hidden bg-main">
       <HeadComponent
         title={"Sweet Dreams - Profile Page"}
         description={`Profile page for ${user?.name ?? "user"}`}

@@ -34,7 +34,7 @@ const RecipePage: NextPage = () => {
       } mins`;
 
   return (
-    <section className="h-screen w-auto overflow-y-hidden bg-main">
+    <main className="min-h-screen h-full w-auto overflow-y-hidden bg-main">
       <HeadComponent
         title={"Sweet Dreams - Recipe Page"}
         description={`Recipe page for ${recipe?.title ?? "recipe"}`}
@@ -117,7 +117,7 @@ const RecipePage: NextPage = () => {
           </div>
         </div>
       </article>
-    </section>
+    </main>
   );
 };
 

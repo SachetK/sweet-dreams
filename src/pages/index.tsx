@@ -13,7 +13,7 @@ const Home: NextPage = () => {
     <>
       <HeadComponent title="Sweet Dreams" description="Sweet Dreams app" />
 
-      <main className="bg-main">
+      <main className="min-h-screen h-full bg-main">
         <div className="flex h-screen flex-col items-center justify-center">
           <div className="flex-initial">
             <Image

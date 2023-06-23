@@ -20,7 +20,7 @@ const SavedRecipes: NextPage = () => {
   );
 
   return (
-    <main className="h-screen bg-main">
+    <main className="min-h-screen h-full bg-main">
       <HeadComponent
         title={`${user?.name ?? "Sweet Dreams"} - Saved Recipes`}
         description={`Saved recipes page for ${user?.name ?? "user"}`}
