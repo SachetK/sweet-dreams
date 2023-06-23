@@ -10,7 +10,11 @@ const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
   recipe,
 }) => {
   const { title, timeToMake, image, ratings } = recipe;
-  const saveRecipe = api.user.saveRecipe.useMutation();
+  
+  const saveRecipe = api.user.saveRecipe.useMutation({
+    onSuccess: () => setSaved(true),
+  });
+  const [saved, setSaved] = useState(false);
 
   const { data: session } = useSession();
   const { data: user } = api.user.byId.useQuery(
@@ -30,27 +34,30 @@ const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
   const { pushRecipe } = useHistory();
 
   return (
-    <Link href={`/recipe/${recipe.id}`} onClick={() => pushRecipe(recipe)}>
+    
       <div
         className="w-auto rounded-3xl bg-yellow"
       >
         <div className="flex h-28 w-full flex-row items-center">
-          <div className="relative ml-4 mr-8 h-24 w-24 ">
+        <Link href={`/recipe/${recipe.id}`} onClick={() => pushRecipe(recipe)} className="flex h-28 w-full flex-row items-center">
+          
             <Image
-              className="rounded-full object-cover object-center"
+              className="rounded-full mx-4"
               src={img}
               alt="recipe image"
-              fill
+              height={96}
+              width={96}
             />
-          </div>
+          
           <div className="flex w-48 flex-col">
             <h1 className="text-2xl">{title}</h1>
             <p className="text-md">Time: {timeToMake} mins</p>
             <p className="text-md">Average Rating: {averageRating}/5</p>
           </div>
+          </Link>
           <button
             type="button"
-            className="mx-4 bg-red px-4 clip-path-heading"
+            className="mx-4 bg-red px-8 py-2 clip-path-heading"
             onClick={() =>
               saveRecipe.mutate({
                 savedRecipes: [...(user?.savedRecipes ?? []), recipe.id],
@@ -58,12 +65,12 @@ const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
             }
           >
             <p className="text-center font-sans text-lg font-medium text-white">
-              Save Recipe
+              {saved ? "Saved" : "Save"}
             </p>
           </button>
         </div>
       </div>
-    </Link>
+    
   );
 };
 
