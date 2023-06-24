@@ -22,7 +22,8 @@ const RecipeComponent: React.FC<{ recipe: RecipeWithRating }> = ({
     { enabled: !!session }
   );
 
-  const [img, setImg] = useState<string>("");
+  const [img, setImg] = useState("");
+  
   const averageRating = useMemo(() => {
     return ratings.reduce((a, b) => a + b.rating, 0) / ratings.length;
   }, [ratings]);

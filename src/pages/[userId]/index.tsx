@@ -230,7 +230,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
 
   if (!parsedSlug.success) {
     return {
-      notFound: true,
       redirect: {
         destination: "/feed",
         permanent: false,
@@ -248,7 +247,6 @@ export const getStaticProps = async (context: GetStaticPropsContext) => {
     };
   } catch (e) {
     return {
-      notFound: true,
       redirect: {
         destination: "/feed",
         permanent: false,
