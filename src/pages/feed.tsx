@@ -12,19 +12,18 @@ const Feed: NextPage = () => {
   useSession({ required: true });
 
   return (
-     
-      <main className="min-h-screen h-full overflow-x-hidden bg-main">
-         <HeadComponent
+    <main className="h-full min-h-screen overflow-x-hidden bg-main">
+      <HeadComponent
         title="Sweet Dreams - Main Feed"
         description="Main landing page with recipies"
       />
-        <NavigationBar />
-        <div className="relative bottom-12 left-32 top-12 w-full md:bottom-4 md:left-40 md:top-4">
-          <RecipeCard title="New Recipes" query={"newest"} />
-          <RecipeCard title="Popular Recipes" query={"rating"} />
-          <RecipeCard title="Your Recipes" query={"user"} />
-        </div>
-      </main>
+      <NavigationBar />
+      <div className="relative bottom-12 left-32 top-12 w-full md:bottom-4 md:left-40 md:top-4">
+        <RecipeCard title="New Recipes" query={"newest"} />
+        <RecipeCard title="Popular Recipes" query={"rating"} />
+        <RecipeCard title="Your Recipes" query={"user"} />
+      </div>
+    </main>
   );
 };
 

@@ -17,7 +17,7 @@ const RecipePage: NextPage = () => {
     { enabled: !!recipeId }
   );
   const rateRecipe = api.recipe.rate.useMutation();
-  
+
   const { data: session } = useSession();
   const [rating, setRating] = useState(
     recipe?.ratings.find((r) => r.userId === session?.user?.id)?.rating ?? 0
@@ -34,7 +34,7 @@ const RecipePage: NextPage = () => {
       } mins`;
 
   return (
-    <main className="min-h-screen h-full w-auto overflow-y-hidden bg-main">
+    <main className="h-full min-h-screen w-auto overflow-y-hidden bg-main">
       <HeadComponent
         title={"Sweet Dreams - Recipe Page"}
         description={`Recipe page for ${recipe?.title ?? "recipe"}`}

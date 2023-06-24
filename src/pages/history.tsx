@@ -15,7 +15,7 @@ const History: NextPage = () => {
   }
 
   return (
-    <main className="min-h-screen h-full p-2 bg-main">
+    <main className="h-full min-h-screen bg-main p-2">
       <HeadComponent
         title="History"
         description={`History page for ${session.user.name ?? "user"}`}
@@ -23,9 +23,9 @@ const History: NextPage = () => {
       <h1 className="text-bold text-center text-6xl">History</h1>
       <div className="mx-[32%] my-4 w-max">
         <div className="flex flex-col space-y-2">
-        {history.reverse().map((recipe) => (
-          <RecipeComponent key={recipe.id} recipe={recipe} />
-        ))}
+          {history.reverse().map((recipe) => (
+            <RecipeComponent key={recipe.id} recipe={recipe} />
+          ))}
         </div>
       </div>
     </main>

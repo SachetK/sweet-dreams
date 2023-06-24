@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 import type { RecipeWithRating } from "~/utils/types";
 
 const HistoryContext = createContext<{
@@ -54,7 +49,9 @@ export const HistoryProvider: React.FC<{ children: React.JSX.Element }> = ({
   };
 
   return (
-    <HistoryContext.Provider value={{ history, pushRecipe, popRecipe, peekRecipe, isEmpty }}>
+    <HistoryContext.Provider
+      value={{ history, pushRecipe, popRecipe, peekRecipe, isEmpty }}
+    >
       {children}
     </HistoryContext.Provider>
   );

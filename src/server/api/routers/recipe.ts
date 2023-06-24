@@ -6,7 +6,7 @@ export const recipeRouter = createTRPCRouter({
     return await ctx.prisma.recipe.findMany();
   }),
 
-  ordered: publicProcedure
+  ordered: protectedProcedure
     .input(
       z.object({
         page: z.number(),
@@ -17,7 +17,7 @@ export const recipeRouter = createTRPCRouter({
     .query(async ({ input: { page, recipesPerPage, type }, ctx }) => {
       const recipes = await ctx.prisma.recipe.findMany({
         where: {
-          authorId: type === "user" ? ctx.session?.user.id : undefined,
+          authorId: type === "user" ? ctx.session.user.id : undefined,
         },
         skip: (page - 1) * recipesPerPage,
         take: recipesPerPage,

@@ -6,7 +6,7 @@ import ButtonComponent from "../../components/ButtonComponent";
 import { useState } from "react";
 import Link from "next/link";
 import { api } from "~/utils/api";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { z } from "zod";
 import { generateSSGHelper } from "~/server/api/helpers/ssgHelpers";
 
@@ -33,7 +33,7 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
   const isOwner = session.user.id === userId;
 
   return (
-    <main className="min-h-screen h-full overflow-x-hidden bg-main">
+    <main className="h-full min-h-screen overflow-x-hidden bg-main">
       <HeadComponent
         title={"Sweet Dreams - Profile Page"}
         description={`Profile page for ${user?.name ?? "user"}`}
@@ -128,6 +128,15 @@ const Profile: NextPage<{ userId: string }> = ({ userId }) => {
               borderColor="border-blue-dark"
             />
           </Link>
+
+          {isOwner && (
+            <ButtonComponent
+              onClick={() =>  void signOut()}
+              text="Sign Out"
+              color="bg-red"
+              borderColor="border-dark-red"
+            />
+          )}
         </section>
         <NewAllergyModal
           toggleHide={() => {

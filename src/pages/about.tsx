@@ -12,7 +12,7 @@ import ButtonComponent from "../components/ButtonComponent";
 
 const About: NextPage = () => {
   return (
-    <main className="min-h-screen h-full overflow-x-hidden bg-main">
+    <main className="h-full min-h-screen overflow-x-hidden bg-main">
       <NavigationBar />
 
       {/* about the creators part */}

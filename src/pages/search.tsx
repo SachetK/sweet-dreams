@@ -38,7 +38,7 @@ const Search: NextPage = () => {
   }, [data, search]);
 
   return (
-    <main className="flex min-h-screen h-full flex-col items-center space-y-2 overflow-y-scroll bg-main scrollbar-hide">
+    <main className="flex h-full min-h-screen flex-col items-center space-y-2 overflow-y-scroll bg-main scrollbar-hide">
       <HeadComponent title="Sweet Dreams - Search" description="Search Page" />
       <NavigationBar />
       <div className="mt-2 flex flex-row space-x-4">
